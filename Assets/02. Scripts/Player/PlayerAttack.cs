@@ -27,6 +27,8 @@ public class PlayerAttack : MonoBehaviour
     void Start()
     {
         StartCoroutine(Fire());
+
+        gauge = 0f;
     }
 
     void Update()
@@ -37,15 +39,9 @@ public class PlayerAttack : MonoBehaviour
 
     void Mouse2()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            anim.SetTrigger("isAttack");
-        }
         if (Input.GetMouseButtonDown(1) && gauge == 1f)
         {
             Hit();
-
-            gauge = 0f;
         }
     }
 
@@ -53,13 +49,13 @@ public class PlayerAttack : MonoBehaviour
     {
         gauge += Time.deltaTime;
 
-        Mathf.Clamp(gauge, 0f, 1f);
-
         image.fillAmount = gauge;
     }
 
     private void Hit()
     {
+        gauge = 0f;
+
         RaycastHit2D hit = Physics2D.BoxCast(firePos.position, new Vector2(3, 5), 0, new Vector2(1, 0), 0.1f, layerMask);
 
         if (hit)
@@ -73,9 +69,8 @@ public class PlayerAttack : MonoBehaviour
         while (true)
         {
             yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
-            Instantiate(slash, firePos.position, Quaternion.identity);
-            
-            PoolManager.GetObject();
+            anim.SetTrigger("isAttack");
+            Instantiate(slash, firePos.transform.position, Quaternion.identity);
             yield return new WaitForSeconds(1f);
         }
 
