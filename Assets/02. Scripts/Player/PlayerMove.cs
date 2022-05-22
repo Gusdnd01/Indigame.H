@@ -17,7 +17,7 @@ public class PlayerMove : MonoBehaviour
         _boundMax = playerCollider.bounds.max;
         _boundMin = playerCollider.bounds.min;
 
-        _halfWidth = playerCollider.offset.x / 2;
+        _halfWidth = playerCollider.size.x / 2;
     }
 
     private void Update()
