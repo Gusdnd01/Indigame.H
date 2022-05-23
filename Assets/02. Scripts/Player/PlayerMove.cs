@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
@@ -8,9 +6,15 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private StageData stageData;
     [SerializeField] private BoxCollider2D playerCollider;
 
+    Rigidbody2D rb;
     private Vector3 _boundMax;
     private Vector3 _boundMin;
     private float _halfWidth;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
 
     void Calc()
     {
@@ -22,16 +26,10 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
+        float x = Mathf.Clamp(Input.GetAxis("Horizontal"), stageData.LimitMin.x, stageData.LimitMax.x);
+        float y = Mathf.Clamp(Input.GetAxis("Vertical"), stageData.LimitMin.y, stageData.LimitMax.y);
 
-        Vector3 pos = transform.position;
-        float min = _boundMin.x + _halfWidth;
-        float max = _boundMax.x - _halfWidth;
-        pos.x = Mathf.Clamp(pos.x + speed * h * Time.deltaTime, min, max);
-
-        transform.position = pos;
+        Vector2 getMove = new Vector2(x, y) * speed;
+        rb.velocity = getMove; ;
     }
-
-    
 }
