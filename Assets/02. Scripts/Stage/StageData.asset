@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: StageData
   m_EditorClassIdentifier: 
   limitMin: {x: -8, y: -5}
-  limitMax: {x: -8, y: -5}
+  limitMax: {x: 8, y: 5}

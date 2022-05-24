@@ -15,7 +15,6 @@ public class PlayerAttack : MonoBehaviour
     
     [Header("우클릭 공격을 할 수 있는 게이지 관련")]
     [SerializeField] private float gauge = 0f;
-    [SerializeField] private Image image;
     
     [Header("박스캐스트가 판별하는 레이어")]
     [SerializeField] private LayerMask layerMask;
@@ -47,9 +46,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void GaugeFill()
     {
-        gauge += Time.deltaTime;
-
-        image.fillAmount = gauge;
+        
     }
 
     private void Hit()
