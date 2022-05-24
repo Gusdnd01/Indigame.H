@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class BackGround : MonoBehaviour
 {
-    [SerializeField] private float speed = 5f;
-    [SerializeField] Transform target;
+    [SerializeField][Range(1f, 14f)] float speed = 3f;
+    [SerializeField] float posValue;
 
+    Vector2 startPos;
+    float newPos;
+
+    private void Start()
+    {
+        startPos = transform.position;
+    }
 
     void Update()
     {
-        if (transform.position.x <= -speed)
-        {
-            transform.position = target.position + Vector3.right * speed;
-        }
+        newPos = Mathf.Repeat(Time.time * speed, posValue);
+        transform.position = startPos + Vector2.left * newPos;
     }
 }

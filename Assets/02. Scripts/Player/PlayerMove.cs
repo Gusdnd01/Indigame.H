@@ -20,13 +20,13 @@ public class PlayerMove : MonoBehaviour
 
         rb.velocity = dir * speed;
 
-        float x = transform.position.x;
-        float y = transform.position.y;
+        //float x = transform.position.x;
+        //float y = transform.position.y;
 
-        x = Mathf.Clamp(x, stageData.LimitMin.x, stageData.LimitMax.x);
-        y = Mathf.Clamp(y, stageData.LimitMin.y, stageData.LimitMax.y);
+        //x = Mathf.Clamp(x, stageData.LimitMin.x, stageData.LimitMax.x);
+        //y = Mathf.Clamp(y, stageData.LimitMin.y, stageData.LimitMax.y);
 
-        transform.position = new Vector3(x,y,0);
+        //transform.position = new Vector3(x,y,0);
 
     }
 }
