@@ -13,6 +13,10 @@ public class StartScene : MonoBehaviour
     private RectTransform _attributeImage;
 
     PlayerAttack playerAttack;
+
+    public bool _wind = false;
+    public bool _fire = false;
+    public bool _thunder = false;
     
     [SerializeField] private Image _fadePanel;
 
@@ -35,9 +39,7 @@ public class StartScene : MonoBehaviour
         _attributePanel.gameObject.SetActive(false);
 
         _animator = GameObject.Find("Player").GetComponent<Animator>();
-
         _player = GameObject.Find("Player").GetComponent<Transform>();
-
         playerAttack = FindObjectOfType<PlayerAttack>();
 
         Image img = _panelImage.GetComponent<Image>();
@@ -76,7 +78,7 @@ public class StartScene : MonoBehaviour
         seq.Append(_attributeImage.DOAnchorPos(new Vector2(0, 0), 0.4f));
     }
 
-    public void Wind()
+    /*public void Wind()
     {
         playerAttack.WindMode();
         StartGame();
@@ -92,9 +94,9 @@ public class StartScene : MonoBehaviour
     {
         playerAttack.ThunderMode();
         StartGame();
-    }
+    }*/
 
-    private void StartGame()
+    public void StartGame()
     {
         Sequence seq = DOTween.Sequence();
         _fadePanel.gameObject.SetActive(true);

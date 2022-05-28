@@ -802,7 +802,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fadePanel: {fileID: 1181672576}
-  attribute: 0
 --- !u!4 &1061241992
 Transform:
   m_ObjectHideFlags: 0
@@ -1154,7 +1153,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1061241991}
         m_TargetAssemblyTypeName: StartScene, Assembly-CSharp
-        m_MethodName: Thunder
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1689,7 +1688,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1061241991}
         m_TargetAssemblyTypeName: StartScene, Assembly-CSharp
-        m_MethodName: Wind
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2020,7 +2019,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1061241991}
         m_TargetAssemblyTypeName: StartScene, Assembly-CSharp
-        m_MethodName: Fire
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
