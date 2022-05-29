@@ -27,6 +27,12 @@ public class StartScene : MonoBehaviour
 
     private Vector3 dir;
 
+    private void Awake()
+    {
+
+        DontDestroyOnLoad(this);
+    }
+
     void Start()
     {
         _canvasTrm = GameObject.Find("Canvas").GetComponent<RectTransform>();

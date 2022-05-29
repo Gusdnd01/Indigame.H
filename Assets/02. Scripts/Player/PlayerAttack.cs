@@ -3,13 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum eAttribute : short
-{
-    Wind = 0,
-    Fire = 1,
-    Thunder = 2
-}
-
 public class PlayerAttack : MonoBehaviour
 {
     [Header("공격이 나가는 위치")]
@@ -32,16 +25,15 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float damage;
     [SerializeField] private float hp;
 
-    
-
-    //현 상태
-    [SerializeField] private eAttribute attribute = eAttribute.Wind;
+    private UIManager _uiManager;
 
     void Start()
     {
         StartCoroutine(Fire());
 
         gauge = 0f;
+
+        _uiManager = GameObject.FindObjectOfType<UIManager>();
     }
 
     void Update()
@@ -56,20 +48,6 @@ public class PlayerAttack : MonoBehaviour
         {
             Hit();
         }
-    }
-    public void WindMode()
-    {
-        attribute = eAttribute.Wind;
-    }
-
-    public void FireMode()
-    {
-        attribute = eAttribute.Fire;
-    }
-
-    public void ThunderMode()
-    {
-        attribute = eAttribute.Thunder;
     }
 
     private void GaugeFill()
@@ -91,17 +69,11 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator Fire()
     {
-        GameObject attributePrefab = windPrefab;
-
-        if (attribute == eAttribute.Wind) attributePrefab = windPrefab;
-        if (attribute == eAttribute.Fire) attributePrefab = firePrefab;
-        if (attribute == eAttribute.Thunder) attributePrefab = thunderPrefab;
-
         while (true)
         {
             yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
             anim.SetTrigger("isAttack");
-            Instantiate(attributePrefab, firePos.transform.position, Quaternion.identity);
+            Instantiate(windPrefab, firePos.transform.position, Quaternion.identity);
             yield return new WaitForSeconds(1f);
         }
     }
