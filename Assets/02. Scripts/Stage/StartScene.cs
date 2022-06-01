@@ -25,7 +25,7 @@ public class StartScene : MonoBehaviour
 
     private Text explainTxt;
 
-    private Image _title;
+    private RectTransform _attributeTrm;
 
     PlayerAttack playerAttack;
 
@@ -33,7 +33,7 @@ public class StartScene : MonoBehaviour
     public bool _fire = false;
     public bool _thunder = false;
     public bool _water = false;
-    
+
     //private RectTransform _panelImage;
 
     private Transform _player;
@@ -57,11 +57,7 @@ public class StartScene : MonoBehaviour
         _attributePanel = _canvasTrm.Find("Propety").GetComponent<RectTransform>();
         _attributeImage = _attributePanel.Find("PropetyChoice").GetComponent <RectTransform>();
 
-        //속성 설명 관련 판넬
-        _windPanel = _canvasTrm.Find("AttributePanel/WindPanel").GetComponent<RectTransform>();
-        _firePanel = _canvasTrm.Find("AttributePanel/FirePanel").GetComponent<RectTransform>();
-        _thunderPanel = _canvasTrm.Find("AttributePanel/ThunderPanel").GetComponent<RectTransform>();
-        _waterPanel = _canvasTrm.Find("AttributePanel/WaterPanel").GetComponent<RectTransform>();
+        _attributeTrm = _canvasTrm.Find("AttributePanel/attributePanel").GetComponent<RectTransform>();
         _startButton = _canvasTrm.Find("AttributePanel/StartButton").GetComponent<RectTransform>();
 
         _curtain = GameObject.Find("Canvas/CurtainManager/Curtain").GetComponent<RectTransform>();
@@ -134,17 +130,16 @@ public class StartScene : MonoBehaviour
     public void WindPanel()
     {
         explainTxt.DOText("", 0.1f);
-        Image img = _windPanel.GetComponent<Image>();
+        Image img = _attributeTrm.GetComponent<Image>();
         img.DOFade(0.5f, 0.1f);
 
         explainTxt.gameObject.SetActive(true);
+        _attributeTrm.gameObject.SetActive(true);
 
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(_firePanel.DOScaleY(0, 1));
-        seq.Join(_thunderPanel.DOScaleY(0, 1));
-        seq.Join(_waterPanel.DOScaleY(0, 1));
-        seq.Append(_windPanel.DOScaleY(900f, 1f));
+        seq.Append(_attributeTrm.DOScaleY(0, 0.5f));
+        seq.Append(_attributeTrm.DOScaleY(900, 0.5f));
         seq.Append(explainTxt.DOText("This is Wind", 2f));
 
         _wind = true;
@@ -158,17 +153,16 @@ public class StartScene : MonoBehaviour
     public void FirePanel()
     {
         explainTxt.DOText("", 0.1f);
-        Image img = _firePanel.GetComponent<Image>();
+        Image img = _attributeTrm.GetComponent<Image>();
         img.DOFade(0.5f, 0.1f);
 
         explainTxt.gameObject.SetActive(true);
-        
+        _attributeTrm.gameObject.SetActive(true);
+
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(_thunderPanel.DOScaleY(0, 1));
-        seq.Join(_windPanel.DOScaleY(0f, 1f));
-        seq.Join(_waterPanel.DOScaleY(0, 1));
-        seq.Append(_firePanel.DOScaleY(900, 1));
+        seq.Append(_attributeTrm.DOScaleY(0, 0.5f));
+        seq.Append(_attributeTrm.DOScaleY(900, 0.5f));
         seq.Append(explainTxt.DOText("This is Fire", 2f));
 
         _wind = false;
@@ -181,17 +175,16 @@ public class StartScene : MonoBehaviour
     public void ThunderPanel()
     {
         explainTxt.DOText("", 0.1f);
-        Image img = _thunderPanel.GetComponent<Image>();
+        Image img = _attributeTrm.GetComponent<Image>();
         img.DOFade(0.5f, 0.1f);
 
         explainTxt.gameObject.SetActive(true);
+        _attributeTrm.gameObject.SetActive(true);
 
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(_firePanel.DOScaleY(0, 1));
-        seq.Join(_windPanel.DOScaleY(0f, 1f));
-        seq.Join(_waterPanel.DOScaleY(0, 1));
-        seq.Append(_thunderPanel.DOScaleY(900, 1));
+        seq.Append(_attributeTrm.DOScaleY(0, 0.5f));
+        seq.Append(_attributeTrm.DOScaleY(900, 0.5f));
         seq.Append(explainTxt.DOText("This is Thunder", 2f));
 
         _wind = false;
@@ -205,17 +198,16 @@ public class StartScene : MonoBehaviour
     {
         explainTxt.DOText("", 0.1f);
 
-        Image img = _waterPanel.GetComponent<Image>();
+        Image img = _attributeTrm.GetComponent<Image>();
         img.DOFade(0.5f, 0.1f);
 
         explainTxt.gameObject.SetActive(true);
+        _attributeTrm.gameObject.SetActive(true);
 
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(_firePanel.DOScaleY(0, 1));
-        seq.Join(_windPanel.DOScaleY(0f, 1f));
-        seq.Join(_thunderPanel.DOScaleY(0, 1));
-        seq.Append(_waterPanel.DOScaleY(900, 1));
+        seq.Append(_attributeTrm.DOScaleY(0, 0.5f));
+        seq.Append(_attributeTrm.DOScaleY(900, 0.5f));
         seq.Append(explainTxt.DOText("This is Water", 2f));
         _wind = false;
         _fire = false;
@@ -225,8 +217,6 @@ public class StartScene : MonoBehaviour
 
     public void StartGame()
     {
-        Sequence seq = DOTween.Sequence();
-
         _curtain.DOAnchorPosX(960, 1f);
         _curtain_1.DOAnchorPosX(-960, 1f);
 
