@@ -12,11 +12,11 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private GameObject windPrefab;
     [SerializeField] private GameObject firePrefab;
     [SerializeField] private GameObject thunderPrefab;
+    [SerializeField] private GameObject waterPrefab;
     [SerializeField] private AudioClip slashSound;
     [SerializeField] private Animator anim;
-    
-    [Header("우클릭 공격을 할 수 있는 게이지 관련")]
-    [SerializeField] private float gauge = 0f;
+
+    public float gauge;
     
     [Header("박스캐스트가 판별하는 레이어")]
     [SerializeField] private LayerMask layerMask;
@@ -25,11 +25,14 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float damage;
     [SerializeField] private float hp;
 
+    private Slider _slider;
     private UIManager _uiManager;
 
     void Start()
     {
         StartCoroutine(Fire());
+        
+        _slider = GameObject.Find("Canvas/Slider").GetComponent<Slider>();
 
         gauge = 0f;
 
@@ -52,28 +55,51 @@ public class PlayerAttack : MonoBehaviour
 
     private void GaugeFill()
     {
-        
+        gauge += Time.deltaTime;
     }
 
     private void Hit()
     {
-        gauge = 0f;
+        gauge -= 1f;
 
         RaycastHit2D hit = Physics2D.BoxCast(firePos.position, new Vector2(3, 5), 0, new Vector2(1, 0), 0.1f, layerMask);
+        Debug.DrawRay(hit.point, Vector3.right, Color.white, 0.2f);
 
         if (hit)
         {
-
+            //범위 좀 작게두고, 데미지는 총알보다는 살짝 높게할거임
         }
     }
 
     IEnumerator Fire()
     {
+        GameObject attributePrefab;    
+
+        if(StartScene.instance._wind == true && StartScene.instance._fire == false 
+            && StartScene.instance._thunder == false && StartScene.instance._water == false)
+        {
+            attributePrefab = windPrefab;
+        }
+        else if (StartScene.instance._wind == false && StartScene.instance._fire == true 
+            && StartScene.instance._thunder == false && StartScene.instance._water == false)
+        {
+            attributePrefab = firePrefab;
+        }
+        else if(StartScene.instance._wind == false && StartScene.instance._fire == false
+            && StartScene.instance._thunder == true && StartScene.instance._water == false)
+        {
+            attributePrefab = thunderPrefab;
+        }
+        else
+        {
+            attributePrefab = waterPrefab;
+        }
+
         while (true)
         {
             yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
             anim.SetTrigger("isAttack");
-            Instantiate(windPrefab, firePos.transform.position, Quaternion.identity);
+            Instantiate(attributePrefab, transform.position, Quaternion.identity);
             yield return new WaitForSeconds(1f);
         }
     }

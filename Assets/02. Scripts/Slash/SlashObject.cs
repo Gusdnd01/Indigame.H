@@ -6,15 +6,10 @@ public class SlashObject : MonoBehaviour
 {
     float moveSpeed = 10f;
 
-
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Vector3 dir;
 
     void Update()
     {
-        Vector3 dir = Vector3.right;
         transform.position += dir * moveSpeed * Time.deltaTime;
     }
 }

@@ -7,6 +7,8 @@ using DG.Tweening;
 
 public class StartScene : MonoBehaviour
 {
+    public static StartScene instance;
+
     private RectTransform _canvasTrm;
     private RectTransform _panelImage;
     private RectTransform _attributePanel;
@@ -18,16 +20,20 @@ public class StartScene : MonoBehaviour
     private RectTransform _waterPanel;
     private RectTransform _startButton;
 
+    private RectTransform _curtain;
+    private RectTransform _curtain_1;
+
     private Text explainTxt;
+
+    private Image _title;
 
     PlayerAttack playerAttack;
 
     public bool _wind = false;
     public bool _fire = false;
     public bool _thunder = false;
+    public bool _water = false;
     
-    [SerializeField] private Image _fadePanel;
-
     //private RectTransform _panelImage;
 
     private Transform _player;
@@ -35,11 +41,13 @@ public class StartScene : MonoBehaviour
 
     private Vector3 dir;
 
-
     private void Awake()
     {
-
-        DontDestroyOnLoad(this);
+        if(instance != null)
+        {
+            Debug.LogError("Multuple instance is running");
+        }
+        instance = this;
     }
 
     void Start()
@@ -55,6 +63,9 @@ public class StartScene : MonoBehaviour
         _thunderPanel = _canvasTrm.Find("AttributePanel/ThunderPanel").GetComponent<RectTransform>();
         _waterPanel = _canvasTrm.Find("AttributePanel/WaterPanel").GetComponent<RectTransform>();
         _startButton = _canvasTrm.Find("AttributePanel/StartButton").GetComponent<RectTransform>();
+
+        _curtain = GameObject.Find("Canvas/CurtainManager/Curtain").GetComponent<RectTransform>();
+        _curtain_1 = GameObject.Find("Canvas/CurtainManager/Curtain_1").GetComponent<RectTransform>();
 
         explainTxt = _canvasTrm.Find("AttributePanel/ExplainTxt").GetComponent<Text>();
 
@@ -139,6 +150,7 @@ public class StartScene : MonoBehaviour
         _wind = true;
         _fire = false;
         _thunder = false;
+        _water = false;
 
         seq.Append(_startButton.DOAnchorPos(new Vector2(0, -400), 1f));
     }
@@ -162,6 +174,8 @@ public class StartScene : MonoBehaviour
         _wind = false;
         _fire = true;
         _thunder = false;
+        _water = false;
+
     }
 
     public void ThunderPanel()
@@ -183,6 +197,8 @@ public class StartScene : MonoBehaviour
         _wind = false;
         _fire = false;
         _thunder = true;
+        _water = false;
+
     }
 
     public void WaterPanel()
@@ -201,14 +217,19 @@ public class StartScene : MonoBehaviour
         seq.Join(_thunderPanel.DOScaleY(0, 1));
         seq.Append(_waterPanel.DOScaleY(900, 1));
         seq.Append(explainTxt.DOText("This is Water", 2f));
+        _wind = false;
+        _fire = false;
+        _thunder = false;
+        _water = true;
     }
 
     public void StartGame()
     {
         Sequence seq = DOTween.Sequence();
 
-        _fadePanel.gameObject.SetActive(true);
-        seq.Append(_fadePanel.DOFade(1, 1));
+        _curtain.DOAnchorPosX(960, 1f);
+        _curtain_1.DOAnchorPosX(-960, 1f);
+
         StartCoroutine(SceneMove(1.5f));
     }
 
@@ -216,6 +237,6 @@ public class StartScene : MonoBehaviour
     {
         yield return new WaitForSeconds(sec);
 
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("Intro");
     }
 }

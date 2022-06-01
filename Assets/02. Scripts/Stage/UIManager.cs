@@ -7,18 +7,19 @@ using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private Image _fadePanel;
+    private RectTransform curtain;
+    private RectTransform curtain_1;
     Sequence sequence;
 
+    private void Awake()
+    {
+        curtain = GameObject.Find("Canvas/Curtain").GetComponent<RectTransform>();
+        curtain_1 = GameObject.Find("Canvas/Curtain_1").GetComponent<RectTransform>();
+    }
     void Start()
     {
-        sequence = DOTween.Sequence();
-
-        sequence.Append(_fadePanel.DOFade(0, 1f));
+        curtain.DOAnchorPosX(1920, 1f);
+        curtain_1.DOAnchorPosX(-1920, 1f);
     }
 
-    void Update()
-    {
-        
-    }
 }
