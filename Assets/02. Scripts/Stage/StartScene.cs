@@ -9,6 +9,14 @@ public class StartScene : MonoBehaviour
 {
     public static StartScene instance;
 
+    public enum ButtonState
+    {
+        Wind = 0,
+        Fire = 1,
+        Thunder = 2,
+        Water = 3
+    }
+
     private RectTransform _canvasTrm;
     private RectTransform _panelImage;
     private RectTransform _attributePanel;
@@ -26,6 +34,7 @@ public class StartScene : MonoBehaviour
     private Text explainTxt;
 
     private RectTransform _attributeTrm;
+    private SpriteRenderer _title;
 
     PlayerAttack playerAttack;
 
@@ -33,6 +42,8 @@ public class StartScene : MonoBehaviour
     public bool _fire = false;
     public bool _thunder = false;
     public bool _water = false;
+
+    private bool _isFall = false;
 
     //private RectTransform _panelImage;
 
@@ -64,6 +75,7 @@ public class StartScene : MonoBehaviour
         _curtain_1 = GameObject.Find("Canvas/CurtainManager/Curtain_1").GetComponent<RectTransform>();
 
         explainTxt = _canvasTrm.Find("AttributePanel/ExplainTxt").GetComponent<Text>();
+        _title = GameObject.Find("Title").GetComponent<SpriteRenderer>();
 
         //_clearImage = _panelImage.Find("").GetComponent<RectTransform>();
 
@@ -82,15 +94,36 @@ public class StartScene : MonoBehaviour
         seq.Append(_panelImage.DOAnchorPos(new Vector2(-494, -230), 0.4f));
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Sequence seq = DOTween.Sequence();
+
+            _title.material.DOColor(Color.white, 1f);
+            seq.Append(_attributeImage.DOAnchorPosY(-800, 0.5f));
+            seq.Join(_startButton.DOAnchorPosY(-600, 0.5f));
+            seq.Join(_attributePanel.DOAnchorPosY(-1080, 0.5f));
+            seq.Join(explainTxt.DOText("", 0.1f));
+
+            _attributeTrm.gameObject.SetActive(false);
+        }
+    }
+    
     public void Falling()
     {
         _animator.SetBool("Falling", true);
 
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(_player.DOMoveY(3.5f, 0.5f));
-        seq.Append(_player.DOMoveY(-15f, 2f));
+        _title.material.DOColor(Color.black, 1f);
+        if(_isFall == false)
+        {
+            seq.Append(_player.DOMoveY(3.5f, 0.5f));
+            seq.Append(_player.DOMoveY(-15f, 2f));
 
+            _isFall = true;
+        }
         _attributePanel.gameObject.SetActive(true);
 
         PropetyChoice();
@@ -98,11 +131,9 @@ public class StartScene : MonoBehaviour
 
     private void PropetyChoice()
     {
-        Image img = _attributePanel.GetComponent<Image>();
-
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(img.DOFade(0.7f, 1));
+        seq.Append(_attributePanel.DOAnchorPosY(0, 0.5f));
 
         seq.Join(_attributeImage.DOAnchorPos(new Vector2(-450, 150), 0.5f));
         seq.Append(_attributeImage.DOAnchorPos(new Vector2(-450, -100), 0.3f));
@@ -138,16 +169,17 @@ public class StartScene : MonoBehaviour
 
         Sequence seq = DOTween.Sequence();
 
+        seq.Append(_startButton.DOAnchorPosY(-600, 0.5f));
         seq.Append(_attributeTrm.DOScaleY(0, 0.5f));
         seq.Append(_attributeTrm.DOScaleY(900, 0.5f));
         seq.Append(explainTxt.DOText("This is Wind", 2f));
+
+        seq.Append(_startButton.DOAnchorPosY(-400, 0.5f));
 
         _wind = true;
         _fire = false;
         _thunder = false;
         _water = false;
-
-        seq.Append(_startButton.DOAnchorPos(new Vector2(0, -400), 1f));
     }
 
     public void FirePanel()
@@ -161,9 +193,11 @@ public class StartScene : MonoBehaviour
 
         Sequence seq = DOTween.Sequence();
 
+        seq.Append(_startButton.DOAnchorPosY(-600, 0.5f));
         seq.Append(_attributeTrm.DOScaleY(0, 0.5f));
         seq.Append(_attributeTrm.DOScaleY(900, 0.5f));
         seq.Append(explainTxt.DOText("This is Fire", 2f));
+        seq.Append(_startButton.DOAnchorPosY(-400, 0.5f));
 
         _wind = false;
         _fire = true;
@@ -183,15 +217,16 @@ public class StartScene : MonoBehaviour
 
         Sequence seq = DOTween.Sequence();
 
+        seq.Append(_startButton.DOAnchorPosY(-600, 0.5f));
         seq.Append(_attributeTrm.DOScaleY(0, 0.5f));
         seq.Append(_attributeTrm.DOScaleY(900, 0.5f));
         seq.Append(explainTxt.DOText("This is Thunder", 2f));
+        seq.Append(_startButton.DOAnchorPosY(-400, 0.5f));
 
         _wind = false;
         _fire = false;
         _thunder = true;
         _water = false;
-
     }
 
     public void WaterPanel()
@@ -206,9 +241,12 @@ public class StartScene : MonoBehaviour
 
         Sequence seq = DOTween.Sequence();
 
+        seq.Append(_startButton.DOAnchorPosY(-600, 0.5f));
         seq.Append(_attributeTrm.DOScaleY(0, 0.5f));
         seq.Append(_attributeTrm.DOScaleY(900, 0.5f));
         seq.Append(explainTxt.DOText("This is Water", 2f));
+        seq.Append(_startButton.DOAnchorPosY(-400, 0.5f));
+
         _wind = false;
         _fire = false;
         _thunder = false;

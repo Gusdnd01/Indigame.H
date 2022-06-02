@@ -13,6 +13,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private GameObject firePrefab;
     [SerializeField] private GameObject thunderPrefab;
     [SerializeField] private GameObject waterPrefab;
+    [SerializeField] private GameObject bloodPrefab;
     [SerializeField] private AudioClip slashSound;
     [SerializeField] private Animator anim;
 
@@ -53,6 +54,16 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            Instantiate(bloodPrefab);
+            hp -= damage;
+            Destroy(bloodPrefab, 2f);
+        }
+    }
+
     private void GaugeFill()
     {
         gauge += Time.deltaTime;
@@ -73,7 +84,7 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator Fire()
     {
-        GameObject attributePrefab;    
+        GameObject attributePrefab;
 
         if(StartScene.instance._wind == true && StartScene.instance._fire == false 
             && StartScene.instance._thunder == false && StartScene.instance._water == false)

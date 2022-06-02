@@ -1,22 +1,31 @@
 fileFormatVersion: 2
-guid: 624d818f8c0b9b24e81bb827538c6ddd
+guid: a0943e7c42cc98d44bc0e4047649c887
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6124843856088816545
-    second: Thunder projectile1 w blur_0
+      213: -4243389574673483943
+    second: idle2_0
   - first:
-      213: 4987446890374171107
-    second: Thunder projectile1 w blur_1
+      213: -8683696539369610142
+    second: idle2_1
   - first:
-      213: 4060382418473472095
-    second: Thunder projectile1 w blur_2
+      213: 3569995279447393958
+    second: idle2_2
   - first:
-      213: 3378496600441125006
-    second: Thunder projectile1 w blur_3
+      213: 1193457304162379288
+    second: idle2_3
   - first:
-      213: 1342873671192676619
-    second: Thunder projectile1 w blur_4
+      213: -3081069324102897983
+    second: idle2_4
+  - first:
+      213: -5318655889926657360
+    second: idle2_5
+  - first:
+      213: 8080958448749634537
+    second: idle2_6
+  - first:
+      213: -3199906342245241482
+    second: idle2_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -118,13 +127,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Thunder projectile1 w blur_0
+      name: idle2_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 32
-        height: 32
+        x: 34
+        y: 117
+        width: 45
+        height: 62
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,20 +141,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1ab58ea4901dff450800000000000000
-      internalID: 6124843856088816545
+      spriteID: 957bdfd0aa37c15c0800000000000000
+      internalID: -4243389574673483943
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Thunder projectile1 w blur_1
+      name: idle2_1
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
+        x: 134
+        y: 117
+        width: 45
+        height: 62
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +162,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3e901eca588f63540800000000000000
-      internalID: 4987446890374171107
+      spriteID: 264e59171005d7780800000000000000
+      internalID: -8683696539369610142
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Thunder projectile1 w blur_2
+      name: idle2_2
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
-        width: 32
-        height: 32
+        x: 234
+        y: 119
+        width: 45
+        height: 61
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,20 +183,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f505a59fb40695830800000000000000
-      internalID: 4060382418473472095
+      spriteID: 6a68841cacb2b8130800000000000000
+      internalID: 3569995279447393958
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Thunder projectile1 w blur_3
+      name: idle2_3
       rect:
         serializedVersion: 2
-        x: 96
-        y: 0
-        width: 32
-        height: 32
+        x: 334
+        y: 119
+        width: 45
+        height: 61
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,20 +204,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e88782012c4d2ee20800000000000000
-      internalID: 3378496600441125006
+      spriteID: 816a13d4813009010800000000000000
+      internalID: 1193457304162379288
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Thunder projectile1 w blur_4
+      name: idle2_4
       rect:
         serializedVersion: 2
-        x: 128
-        y: 0
-        width: 32
-        height: 32
+        x: 34
+        y: 19
+        width: 45
+        height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,8 +225,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b090aa53d78d2a210800000000000000
-      internalID: 1342873671192676619
+      spriteID: 1ce6e7026c7dd35d0800000000000000
+      internalID: -3081069324102897983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle2_5
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 19
+        width: 45
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0bae166c5a65036b0800000000000000
+      internalID: -5318655889926657360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle2_6
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 17
+        width: 45
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e3e966f4e4552070800000000000000
+      internalID: 8080958448749634537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle2_7
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 17
+        width: 45
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67de3f3b226a793d0800000000000000
+      internalID: -3199906342245241482
       vertices: []
       indices: 
       edges: []

@@ -12,13 +12,19 @@ public class Boss : MonoBehaviour
     [SerializeField] private Transform secondFirePos;
     [SerializeField] private Transform thirdFirePos;
 
+    [SerializeField] private float bossHp;
+    private float playerDamage;
+
     [SerializeField] private float currentTime;
     private float maxTime;
+
+    private Animator anim;
 
     private float _randomSpawn;
 
     private void Start()
     {
+        anim = GetComponent<Animator>();
         StartCoroutine(Spawn());
     }
 
@@ -26,24 +32,35 @@ public class Boss : MonoBehaviour
     {
         
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Slash"))
+        {
+            playerDamage = UnityEngine.Random.Range(14, 21);
+            bossHp -= playerDamage;
+        }
+    }
 
     IEnumerator Spawn()
     {
         while (true) 
         {
-            yield return new WaitForSeconds(UnityEngine.Random.Range(3, 5));
-            int rand = UnityEngine.Random.Range(1, 3);
+            yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f, 2f));
+            int rand = UnityEngine.Random.Range(1, 4);
             if(rand == 1)
             {
                 Instantiate(_attackPrefab, firstFirePos.position, Quaternion.identity);
+                anim.SetTrigger("isAttack");
             }
             else if(rand == 2)
             {
                 Instantiate(_attackPrefab, secondFirePos.position, Quaternion.identity);
+                anim.SetTrigger("isAttack_1");
             }
-            else
+            else if(rand == 3)
             {
                 Instantiate(_attackPrefab, thirdFirePos.position, Quaternion.identity);
+                anim.SetTrigger("isAttack");
             }
         }
 
