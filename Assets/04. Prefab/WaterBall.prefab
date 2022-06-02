@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9097117947165260445}
   m_Layer: 0
   m_Name: WaterBall
-  m_TagString: Untagged
+  m_TagString: Slash
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

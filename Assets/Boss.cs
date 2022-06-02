@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Boss : MonoBehaviour
 {
@@ -38,6 +39,13 @@ public class Boss : MonoBehaviour
         {
             playerDamage = UnityEngine.Random.Range(14, 21);
             bossHp -= playerDamage;
+
+            if(bossHp < 0)
+            {
+                anim.SetTrigger("isDeath");
+
+                StartCoroutine(Death(2.5f));
+            }
         }
     }
 
@@ -63,6 +71,16 @@ public class Boss : MonoBehaviour
                 anim.SetTrigger("isAttack");
             }
         }
+    }
 
+    IEnumerator Death(float sec)
+    {
+        yield return new WaitForSeconds(sec);
+
+        UIManager.Instance.CurtainReverse();
+
+        yield return new WaitForSeconds(sec);
+
+        SceneManager.LoadScene(UnityEngine.Random.Range(2, 4));
     }
 }

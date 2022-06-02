@@ -58,9 +58,9 @@ public class PlayerAttack : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            Instantiate(bloodPrefab);
+            Destroy(collision.gameObject);
+            Instantiate(bloodPrefab, transform.position, Quaternion.identity);
             hp -= damage;
-            Destroy(bloodPrefab, 2f);
         }
     }
 

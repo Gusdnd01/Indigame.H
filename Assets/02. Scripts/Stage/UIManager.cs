@@ -7,9 +7,10 @@ using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager Instance;
+
     private RectTransform curtain;
     private RectTransform curtain_1;
-    Sequence sequence;
 
     private void Awake()
     {
@@ -18,8 +19,19 @@ public class UIManager : MonoBehaviour
     }
     void Start()
     {
+        CurtainMove();
+    }
+
+    public void CurtainMove()
+    {
         curtain.DOAnchorPosX(1920, 1f);
         curtain_1.DOAnchorPosX(-1920, 1f);
+    }
+
+    public void CurtainReverse()
+    {
+        curtain.DOAnchorPosX(960, 1f);
+        curtain_1.DOAnchorPosX(-960, 1f);
     }
 
 }

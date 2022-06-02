@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -3717736355039525324}
   m_Layer: 8
   m_Name: Wind Projectile_0
-  m_TagString: Untagged
+  m_TagString: Slash
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
