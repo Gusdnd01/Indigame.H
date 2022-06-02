@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using DG.Tweening;
 
 public class CurtainManager : MonoBehaviour
@@ -25,10 +26,24 @@ public class CurtainManager : MonoBehaviour
         StartCoroutine(FadeIn(4.25f));
     }
 
+
+    public void MainMenu()
+    {
+        StartCoroutine(MoveMenu(2.5f));
+    }
+
     IEnumerator FadeIn(float sec)
     {
         yield return new WaitForSeconds(sec);
         _curtain.DOAnchorPosX(960, 1f);
         _curtain_1.DOAnchorPosX(-960, 1f);
+    }
+
+    IEnumerator MoveMenu(float sec)
+    {
+        _curtain.DOAnchorPosX(960, 1f);
+        _curtain_1.DOAnchorPosX(-960, 1f);
+        yield return new WaitForSeconds(sec);
+        SceneManager.LoadScene(0);
     }
 }

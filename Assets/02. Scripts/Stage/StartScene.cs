@@ -74,6 +74,9 @@ public class StartScene : MonoBehaviour
         _curtain = GameObject.Find("Canvas/CurtainManager/Curtain").GetComponent<RectTransform>();
         _curtain_1 = GameObject.Find("Canvas/CurtainManager/Curtain_1").GetComponent<RectTransform>();
 
+        _curtain.DOAnchorPosX(1920, 0.5f);
+        _curtain_1.DOAnchorPosX(-1920, 0.5f);
+
         explainTxt = _canvasTrm.Find("AttributePanel/ExplainTxt").GetComponent<Text>();
         _title = GameObject.Find("Title").GetComponent<SpriteRenderer>();
 

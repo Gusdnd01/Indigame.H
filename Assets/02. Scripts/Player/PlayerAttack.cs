@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -24,10 +26,14 @@ public class PlayerAttack : MonoBehaviour
 
     [Header("데미지 수치관련")]
     [SerializeField] private float damage;
-    [SerializeField] private float hp;
+    [SerializeField] private float maxHp;
+    private float currentHp;
 
     private Slider _slider;
     private UIManager _uiManager;
+
+    private RectTransform _curtain;
+    private RectTransform _curtain_1;
 
     void Start()
     {
@@ -35,9 +41,13 @@ public class PlayerAttack : MonoBehaviour
         
         _slider = GameObject.Find("Canvas/Slider").GetComponent<Slider>();
 
+        _curtain = GameObject.Find("Canvas/Curtain").GetComponent<RectTransform>();
+        _curtain_1 = GameObject.Find("Canvas/Curtain_1").GetComponent<RectTransform>();
+
         gauge = 0f;
 
         _uiManager = GameObject.FindObjectOfType<UIManager>();
+        currentHp = maxHp;
     }
 
     void Update()
@@ -60,7 +70,11 @@ public class PlayerAttack : MonoBehaviour
         {
             Destroy(collision.gameObject);
             Instantiate(bloodPrefab, transform.position, Quaternion.identity);
-            hp -= damage;
+            currentHp -= damage;
+            if(currentHp < 0f)
+            {
+                StartCoroutine(Death(2.5f));
+            }
         }
     }
 
@@ -113,5 +127,15 @@ public class PlayerAttack : MonoBehaviour
             Instantiate(attributePrefab, transform.position, Quaternion.identity);
             yield return new WaitForSeconds(1f);
         }
+    }
+
+    IEnumerator Death(float sec)
+    {
+        _curtain.DOAnchorPosX(960, 0.5f);
+        _curtain_1.DOAnchorPosX(-960, 0.5f);
+
+        yield return new WaitForSeconds(sec);
+
+        SceneManager.LoadScene("Ending");
     }
 }

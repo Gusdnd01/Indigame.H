@@ -7,8 +7,6 @@ using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
-    public static UIManager Instance;
-
     private RectTransform curtain;
     private RectTransform curtain_1;
 
@@ -17,21 +15,10 @@ public class UIManager : MonoBehaviour
         curtain = GameObject.Find("Canvas/Curtain").GetComponent<RectTransform>();
         curtain_1 = GameObject.Find("Canvas/Curtain_1").GetComponent<RectTransform>();
     }
-    void Start()
-    {
-        CurtainMove();
-    }
 
-    public void CurtainMove()
+    private void Start()
     {
-        curtain.DOAnchorPosX(1920, 1f);
-        curtain_1.DOAnchorPosX(-1920, 1f);
+        curtain.DOAnchorPosX(1920, 0.5f);
+        curtain_1.DOAnchorPosX(-1920, 0.5f);
     }
-
-    public void CurtainReverse()
-    {
-        curtain.DOAnchorPosX(960, 1f);
-        curtain_1.DOAnchorPosX(-960, 1f);
-    }
-
 }
