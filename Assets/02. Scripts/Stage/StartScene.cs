@@ -44,6 +44,7 @@ public class StartScene : MonoBehaviour
     public bool _water = false;
 
     private bool _isFall = false;
+    private bool _isNotStart = false;
 
     //private RectTransform _panelImage;
 
@@ -99,7 +100,7 @@ public class StartScene : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Backspace))
         {
             Sequence seq = DOTween.Sequence();
 
@@ -110,6 +111,12 @@ public class StartScene : MonoBehaviour
             seq.Join(explainTxt.DOText("", 0.1f));
 
             _attributeTrm.gameObject.SetActive(false);
+            _isNotStart = false;
+        }
+
+        else if(Input.GetKeyDown(KeyCode.Escape) && _isNotStart == false)
+        {
+            StartCoroutine(Exit());
         }
     }
     
@@ -134,6 +141,7 @@ public class StartScene : MonoBehaviour
 
     private void PropetyChoice()
     {
+        _isNotStart = true;
         Sequence seq = DOTween.Sequence();
 
         seq.Append(_attributePanel.DOAnchorPosY(0, 0.5f));
@@ -269,5 +277,13 @@ public class StartScene : MonoBehaviour
         yield return new WaitForSeconds(sec);
 
         SceneManager.LoadScene("Intro");
+    }
+
+    IEnumerator Exit()
+    {
+        _curtain.DOAnchorPosX(960, 0.5f);
+        _curtain_1.DOAnchorPosX(-960, 0.5f);
+        yield return new WaitForSeconds(1f);
+        Application.Quit();
     }
 }
