@@ -32,11 +32,24 @@ public class CurtainManager : MonoBehaviour
         StartCoroutine(MoveMenu(2.5f));
     }
 
+    public void SkipIntro()
+    {
+        StartCoroutine(Skip());
+    }
+
     IEnumerator FadeIn(float sec)
     {
         yield return new WaitForSeconds(sec);
         _curtain.DOAnchorPosX(960, 1f);
         _curtain_1.DOAnchorPosX(-960, 1f);
+    }
+
+    IEnumerator Skip()
+    {
+        _curtain.DOAnchorPosX(960, 1f);
+        _curtain_1.DOAnchorPosX(-960, 1f);
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(2);
     }
 
     IEnumerator MoveMenu(float sec)

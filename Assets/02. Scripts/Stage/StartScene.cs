@@ -22,11 +22,13 @@ public class StartScene : MonoBehaviour
     private RectTransform _attributePanel;
     private RectTransform _attributeImage;
 
-    private RectTransform _windPanel;
-    private RectTransform _firePanel;
-    private RectTransform _thunderPanel;
-    private RectTransform _waterPanel;
     private RectTransform _startButton;
+    private RectTransform _quitButton;
+
+    private Button _windButton;
+    private Button _fireButton;
+    private Button _thunderButton;
+    private Button _waterButton;
 
     private RectTransform _curtain;
     private RectTransform _curtain_1;
@@ -45,6 +47,7 @@ public class StartScene : MonoBehaviour
 
     private bool _isFall = false;
     private bool _isNotStart = false;
+    private bool _isStart = false;
 
     //private RectTransform _panelImage;
 
@@ -64,6 +67,7 @@ public class StartScene : MonoBehaviour
 
     void Start()
     {
+        #region °´Ã¼ Å½»ö ½ºÅ©¸³Æ®
         _canvasTrm = GameObject.Find("Canvas").GetComponent<RectTransform>();
         _panelImage = _canvasTrm.Find("Start").GetComponent<RectTransform>();
         _attributePanel = _canvasTrm.Find("Propety").GetComponent<RectTransform>();
@@ -71,6 +75,12 @@ public class StartScene : MonoBehaviour
 
         _attributeTrm = _canvasTrm.Find("AttributePanel/attributePanel").GetComponent<RectTransform>();
         _startButton = _canvasTrm.Find("AttributePanel/StartButton").GetComponent<RectTransform>();
+        _quitButton = _canvasTrm.Find("AttributePanel/QuitButton").GetComponent<RectTransform>();
+
+        _windButton = _attributeImage.Find("Wind").GetComponent<Button>();
+        _fireButton = _attributeImage.Find("Fire").GetComponent<Button>();
+        _thunderButton = _attributeImage.Find("Thunder").GetComponent<Button>();
+        _waterButton = _attributeImage.Find("Water").GetComponent<Button>();
 
         _curtain = GameObject.Find("Canvas/CurtainManager/Curtain").GetComponent<RectTransform>();
         _curtain_1 = GameObject.Find("Canvas/CurtainManager/Curtain_1").GetComponent<RectTransform>();
@@ -88,7 +98,7 @@ public class StartScene : MonoBehaviour
         _animator = GameObject.Find("Player").GetComponent<Animator>();
         _player = GameObject.Find("Player").GetComponent<Transform>();
         playerAttack = FindObjectOfType<PlayerAttack>();
-
+        #endregion
         Image img = _panelImage.GetComponent<Image>();
 
         Sequence seq = DOTween.Sequence();
@@ -96,25 +106,13 @@ public class StartScene : MonoBehaviour
         seq.Append(_panelImage.DOAnchorPos(new Vector2(-494, -230) - new Vector2(0, 60f), 0.5f));
         seq.Append(_panelImage.DOAnchorPos(new Vector2(-494, -230) + new Vector2(0, 40f), 0.3f));
         seq.Append(_panelImage.DOAnchorPos(new Vector2(-494, -230), 0.4f));
+
+        StartCoroutine(BackSpaceEscape());
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Backspace))
-        {
-            Sequence seq = DOTween.Sequence();
-
-            _title.material.DOColor(Color.white, 1f);
-            seq.Append(_attributeImage.DOAnchorPosY(-800, 0.5f));
-            seq.Join(_startButton.DOAnchorPosY(-600, 0.5f));
-            seq.Join(_attributePanel.DOAnchorPosY(-1080, 0.5f));
-            seq.Join(explainTxt.DOText("", 0.1f));
-
-            _attributeTrm.gameObject.SetActive(false);
-            _isNotStart = false;
-        }
-
-        else if(Input.GetKeyDown(KeyCode.Escape) && _isNotStart == false)
+        if(Input.GetKeyDown(KeyCode.Escape) && _isNotStart == false)
         {
             StartCoroutine(Exit());
         }
@@ -180,17 +178,20 @@ public class StartScene : MonoBehaviour
 
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(_startButton.DOAnchorPosY(-600, 0.5f));
-        seq.Append(_attributeTrm.DOScaleY(0, 0.5f));
         seq.Append(_attributeTrm.DOScaleY(900, 0.5f));
         seq.Append(explainTxt.DOText("This is Wind", 2f));
-
         seq.Append(_startButton.DOAnchorPosY(-400, 0.5f));
+        seq.Append(_quitButton.DOAnchorPosY(-450, 0.5f));
 
         _wind = true;
         _fire = false;
         _thunder = false;
         _water = false;
+
+        _windButton.interactable = false;
+        _fireButton.interactable = false;
+        _thunderButton.interactable = false;
+        _waterButton.interactable = false;
     }
 
     public void FirePanel()
@@ -204,17 +205,20 @@ public class StartScene : MonoBehaviour
 
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(_startButton.DOAnchorPosY(-600, 0.5f));
-        seq.Append(_attributeTrm.DOScaleY(0, 0.5f));
         seq.Append(_attributeTrm.DOScaleY(900, 0.5f));
         seq.Append(explainTxt.DOText("This is Fire", 2f));
         seq.Append(_startButton.DOAnchorPosY(-400, 0.5f));
+        seq.Append(_quitButton.DOAnchorPosY(-450, 0.5f));
 
         _wind = false;
         _fire = true;
         _thunder = false;
         _water = false;
 
+        _windButton.interactable = false;
+        _fireButton.interactable = false;
+        _thunderButton.interactable = false;
+        _waterButton.interactable = false;
     }
 
     public void ThunderPanel()
@@ -228,16 +232,20 @@ public class StartScene : MonoBehaviour
 
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(_startButton.DOAnchorPosY(-600, 0.5f));
-        seq.Append(_attributeTrm.DOScaleY(0, 0.5f));
         seq.Append(_attributeTrm.DOScaleY(900, 0.5f));
         seq.Append(explainTxt.DOText("This is Thunder", 2f));
         seq.Append(_startButton.DOAnchorPosY(-400, 0.5f));
+        seq.Append(_quitButton.DOAnchorPosY(-450, 0.5f));
 
         _wind = false;
         _fire = false;
         _thunder = true;
         _water = false;
+
+        _windButton.interactable = false;
+        _fireButton.interactable = false;
+        _thunderButton.interactable = false;
+        _waterButton.interactable = false;
     }
 
     public void WaterPanel()
@@ -252,16 +260,20 @@ public class StartScene : MonoBehaviour
 
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(_startButton.DOAnchorPosY(-600, 0.5f));
-        seq.Append(_attributeTrm.DOScaleY(0, 0.5f));
         seq.Append(_attributeTrm.DOScaleY(900, 0.5f));
         seq.Append(explainTxt.DOText("This is Water", 2f));
         seq.Append(_startButton.DOAnchorPosY(-400, 0.5f));
+        seq.Append(_quitButton.DOAnchorPosY(-450, 0.5f));
 
         _wind = false;
         _fire = false;
         _thunder = false;
         _water = true;
+
+        _windButton.interactable = false;
+        _fireButton.interactable = false;
+        _thunderButton.interactable = false;
+        _waterButton.interactable = false;
     }
 
     public void StartGame()
@@ -272,11 +284,49 @@ public class StartScene : MonoBehaviour
         StartCoroutine(SceneMove(1.5f));
     }
 
+    public void AttributeQuitButton()
+    {
+        _startButton.DOAnchorPosY(-600, 0.5f);
+        _quitButton.DOAnchorPosY(-660, 0.5f);
+        _attributeTrm.DOScaleY(0, 0.5f);
+
+        explainTxt.DOText("", 0.1f);
+
+        _windButton.interactable = true;
+        _fireButton.interactable = true;
+        _thunderButton.interactable = true;
+        _waterButton.interactable = true;
+    }
+
     IEnumerator SceneMove(float sec)
     {
         yield return new WaitForSeconds(sec);
 
         SceneManager.LoadScene("Intro");
+    }
+
+    IEnumerator BackSpaceEscape()
+    {
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Backspace));
+
+        yield return new WaitForSeconds(2.5f);
+
+        Sequence seq = DOTween.Sequence();
+
+        _title.material.DOColor(Color.white, 1f);
+        seq.Append(_attributeImage.DOAnchorPosY(-800, 0.5f));
+        seq.Join(_startButton.DOAnchorPosY(-600, 0.5f));
+        seq.Join(_quitButton.DOAnchorPosY(-660, 0.5f));
+        seq.Join(_attributePanel.DOAnchorPosY(-1080, 0.5f));
+        seq.Join(explainTxt.DOText("", 0.1f));
+
+        _attributeTrm.gameObject.SetActive(false);
+        _isNotStart = false;
+
+        _windButton.interactable = true;
+        _fireButton.interactable = true;
+        _thunderButton.interactable = true;
+        _waterButton.interactable = true;
     }
 
     IEnumerator Exit()

@@ -18,8 +18,4 @@ public class ReturnToMainMenu : MonoBehaviour
         _MainMenuButton.DOAnchorPosY(105, 0.5f);
     }
 
-    public void MainMenu()
-    {
-        SceneManager.LoadScene(0);
-    }
 }

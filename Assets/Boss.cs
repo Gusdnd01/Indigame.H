@@ -15,14 +15,14 @@ public class Boss : MonoBehaviour
     [SerializeField] private Transform secondFirePos;
     [SerializeField] private Transform thirdFirePos;
 
-    [SerializeField] private float _maxBossHp;
+    private float _maxBossHp;
     private float currentHp;
     private float playerDamage;
 
     private float currentTime;
     private float maxTime;
 
-    private Slider _slider;
+    private Image _hpBar;
 
     private Animator anim;
 
@@ -33,14 +33,18 @@ public class Boss : MonoBehaviour
 
     private void Start()
     {
+        _maxBossHp = UnityEngine.Random.Range(100f, 200f);
+
         anim = GetComponent<Animator>();
         StartCoroutine(Spawn());
 
         curtain = GameObject.Find("Canvas/Curtain").GetComponent<RectTransform>();
         curtain_1 = GameObject.Find("Canvas/Curtain_1").GetComponent<RectTransform>();
 
-        _slider = GameObject.Find("Canvas/HpSlider").GetComponent<Slider>();
+        _hpBar = GameObject.Find("Canvas/BossHpBar/Amount").GetComponent<Image>();
         currentHp = _maxBossHp;
+
+        print(currentHp);
     }
 
     
@@ -51,7 +55,7 @@ public class Boss : MonoBehaviour
             Destroy(collision.gameObject);
             playerDamage = UnityEngine.Random.Range(7, 13);
             currentHp -= playerDamage;
-            _slider.value = currentHp / _maxBossHp;
+            _hpBar.fillAmount = currentHp / _maxBossHp;
 
             if (currentHp < 0)
             {
@@ -62,6 +66,7 @@ public class Boss : MonoBehaviour
             Debug.Log(playerDamage);
         }
     }
+
     void Update()
     {
         if(isDeath == true)

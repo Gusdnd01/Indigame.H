@@ -20,7 +20,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private Animator anim;
 
     public float gauge;
-    
+
     [Header("박스캐스트가 판별하는 레이어")]
     [SerializeField] private LayerMask layerMask;
 
@@ -29,7 +29,14 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float maxHp;
     private float currentHp;
 
-    private Slider _slider;
+    [Header("스킬 게이지 관련")]
+    [SerializeField] private float maxGauge = 100;
+    private float currentGauge;
+
+    private RectTransform _hpBar;
+    private RectTransform _skillBar;
+    private Image _hpBarAmount;
+    private Image _skillBarAmount;
     private UIManager _uiManager;
 
     private RectTransform _curtain;
@@ -38,61 +45,66 @@ public class PlayerAttack : MonoBehaviour
     void Start()
     {
         StartCoroutine(Fire());
-        
-        _slider = GameObject.Find("Canvas/Slider").GetComponent<Slider>();
 
+        _hpBar = GameObject.Find("Canvas/HpBar").GetComponent<RectTransform>();
+        _skillBar = GameObject.Find("Canvas/HpBar").GetComponent<RectTransform>();
+        _hpBarAmount = _hpBar.Find("Amount").GetComponent<Image>();
+        _skillBarAmount = _skillBar.Find("Amount").GetComponent<Image>();
         _curtain = GameObject.Find("Canvas/Curtain").GetComponent<RectTransform>();
         _curtain_1 = GameObject.Find("Canvas/Curtain_1").GetComponent<RectTransform>();
 
-        gauge = 0f;
-
         _uiManager = GameObject.FindObjectOfType<UIManager>();
         currentHp = maxHp;
+        currentGauge = maxGauge;
     }
 
     void Update()
     {
         Mouse2();
-        GaugeFill();
     }
 
     void Mouse2()
     {
-        if (Input.GetMouseButtonDown(1) && gauge == 1f)
+        if (Input.GetMouseButtonDown(1) && currentGauge > 0)
         {
-            Hit();
+            StartCoroutine(UseSkill());
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        RectTransform rect = _hpBar.GetComponent<RectTransform>();
+
         if (collision.gameObject.CompareTag("Bullet"))
         {
+            rect.DOShakeAnchorPos(1f, 10, 10);
             Destroy(collision.gameObject);
             Instantiate(bloodPrefab, transform.position, Quaternion.identity);
             currentHp -= damage;
-            if(currentHp < 0f)
+
+            _hpBarAmount.fillAmount = currentHp / maxHp;
+            if (currentHp < 0f)
             {
                 StartCoroutine(Death(2.5f));
             }
         }
     }
 
-    private void GaugeFill()
+    private void Skill()
     {
-        gauge += Time.deltaTime;
+        anim.SetTrigger("isSkill");
+
+        Hit();
     }
 
     private void Hit()
     {
-        gauge -= 1f;
-
         RaycastHit2D hit = Physics2D.BoxCast(firePos.position, new Vector2(3, 5), 0, new Vector2(1, 0), 0.1f, layerMask);
         Debug.DrawRay(hit.point, Vector3.right, Color.white, 0.2f);
 
         if (hit)
         {
-            //범위 좀 작게두고, 데미지는 총알보다는 살짝 높게할거임
+            
         }
     }
 
@@ -127,6 +139,14 @@ public class PlayerAttack : MonoBehaviour
             Instantiate(attributePrefab, transform.position, Quaternion.identity);
             yield return new WaitForSeconds(1f);
         }
+    }
+
+    IEnumerator UseSkill()
+    {
+        Skill();
+        currentGauge -= 20f;
+        _skillBarAmount.fillAmount = currentGauge/maxGauge;
+        yield return new WaitForSeconds(1f);
     }
 
     IEnumerator Death(float sec)
