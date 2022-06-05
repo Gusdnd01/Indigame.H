@@ -31,6 +31,8 @@ public class Boss : MonoBehaviour
     private RectTransform curtain;
     private RectTransform curtain_1;
 
+    private ScoreManager scoreObj;
+
     private void Start()
     {
         _maxBossHp = UnityEngine.Random.Range(100f, 200f);
@@ -45,6 +47,8 @@ public class Boss : MonoBehaviour
         currentHp = _maxBossHp;
 
         print(currentHp);
+
+        scoreObj = GameObject.Find("UIManager").GetComponent<ScoreManager>();
     }
 
     
@@ -53,15 +57,17 @@ public class Boss : MonoBehaviour
         if (collision.gameObject.CompareTag("Slash"))
         {
             Destroy(collision.gameObject);
-            playerDamage = UnityEngine.Random.Range(7, 13);
+            playerDamage = UnityEngine.Random.Range(20, 40);
             currentHp -= playerDamage;
             _hpBar.fillAmount = currentHp / _maxBossHp;
 
-            if (currentHp < 0)
+            if (currentHp <= 0)
             {
                 isDeath = true;
                 anim.SetTrigger("isDeath");
                 StartCoroutine(Death(1f));
+                scoreObj.SetScore(scoreObj.GetScore() + 1);
+                print(scoreObj.GetScore());
             }
             Debug.Log(playerDamage);
         }
