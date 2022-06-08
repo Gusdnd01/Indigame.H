@@ -26,6 +26,9 @@ public class Boss : MonoBehaviour
 
     private Animator anim;
 
+    [SerializeField] float sec;
+    [SerializeField] float sec_1;
+
     private float _randomSpawn;
     private bool isDeath = false;
     private RectTransform curtain;
@@ -35,7 +38,7 @@ public class Boss : MonoBehaviour
 
     private void Start()
     {
-        _maxBossHp = UnityEngine.Random.Range(100f, 200f);
+        _maxBossHp = UnityEngine.Random.Range(200, 400);
 
         anim = GetComponent<Animator>();
         StartCoroutine(Spawn());
@@ -57,17 +60,34 @@ public class Boss : MonoBehaviour
         if (collision.gameObject.CompareTag("Slash"))
         {
             Destroy(collision.gameObject);
-            playerDamage = UnityEngine.Random.Range(20, 40);
             currentHp -= playerDamage;
             _hpBar.fillAmount = currentHp / _maxBossHp;
 
+            if (StartScene.instance._wind == true && StartScene.instance._fire == false
+            && StartScene.instance._thunder == false && StartScene.instance._water == false)
+            {
+                playerDamage = UnityEngine.Random.Range(1, 20);
+            }
+            else if (StartScene.instance._wind == false && StartScene.instance._fire == true
+                && StartScene.instance._thunder == false && StartScene.instance._water == false)
+            {
+                playerDamage = 20;
+            }
+            else if (StartScene.instance._wind == false && StartScene.instance._fire == false
+                && StartScene.instance._thunder == true && StartScene.instance._water == false)
+            {
+                playerDamage = UnityEngine.Random.Range(10, 15);
+            }
+            else
+            {
+                playerDamage = UnityEngine.Random.Range(5, 10);
+            }
             if (currentHp <= 0)
             {
                 isDeath = true;
                 anim.SetTrigger("isDeath");
                 StartCoroutine(Death(1f));
                 scoreObj.SetScore(scoreObj.GetScore() + 1);
-                print(scoreObj.GetScore());
             }
             Debug.Log(playerDamage);
         }
@@ -75,7 +95,7 @@ public class Boss : MonoBehaviour
 
     void Update()
     {
-        if(isDeath == true)
+        if(isDeath != true)
         {
             StopCoroutine(Spawn());
         }
@@ -85,7 +105,7 @@ public class Boss : MonoBehaviour
     {
         while (true) 
         {
-            yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f, 2f));
+            yield return new WaitForSeconds(UnityEngine.Random.Range(sec, sec_1));
             int rand = UnityEngine.Random.Range(1, 4);
             if (rand == 1)
             {
@@ -107,10 +127,11 @@ public class Boss : MonoBehaviour
 
     IEnumerator Death(float sec)
     {
+        yield return new WaitForSeconds(1f);
         curtain.DOAnchorPosX(960, 0.5f);
         curtain_1.DOAnchorPosX(-960, 0.5f);
         yield return new WaitForSeconds(sec);
         isDeath = false;
-        SceneManager.LoadScene(UnityEngine.Random.Range(2, 4));
+        SceneManager.LoadScene(UnityEngine.Random.Range(2, 5));
     }
 }

@@ -39,7 +39,7 @@ public class CamMove : MonoBehaviour
 
             yield return new WaitForSeconds(sec);
 
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(UnityEngine.Random.Range(2, 5));
         }
     }
 }

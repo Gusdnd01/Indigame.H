@@ -28,10 +28,14 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float damage;
     [SerializeField] private float maxHp;
     private float currentHp;
+    float sec;
 
     [Header("스킬 게이지 관련")]
     [SerializeField] private float maxGauge = 100;
     private float currentGauge;
+
+    [SerializeField] private float maxGauge_skill;
+    [SerializeField] private float currentGauge_skill;
 
     private RectTransform _hpBar;
     private RectTransform _skillBar;
@@ -47,7 +51,7 @@ public class PlayerAttack : MonoBehaviour
         StartCoroutine(Fire());
 
         _hpBar = GameObject.Find("Canvas/HpBar").GetComponent<RectTransform>();
-        _skillBar = GameObject.Find("Canvas/HpBar").GetComponent<RectTransform>();
+        _skillBar = GameObject.Find("Canvas/SkillBar").GetComponent<RectTransform>();
         _hpBarAmount = _hpBar.Find("Amount").GetComponent<Image>();
         _skillBarAmount = _skillBar.Find("Amount").GetComponent<Image>();
         _curtain = GameObject.Find("Canvas/Curtain").GetComponent<RectTransform>();
@@ -56,19 +60,10 @@ public class PlayerAttack : MonoBehaviour
         _uiManager = GameObject.FindObjectOfType<UIManager>();
         currentHp = maxHp;
         currentGauge = maxGauge;
-    }
 
-    void Update()
-    {
-        Mouse2();
-    }
+        currentGauge_skill = maxGauge_skill;
 
-    void Mouse2()
-    {
-        if (Input.GetMouseButtonDown(1) && currentGauge > 0)
-        {
-            StartCoroutine(UseSkill());
-        }
+        StartCoroutine(UseSkill());
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -90,46 +85,57 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    private void Skill()
+    private void Update()
     {
-        anim.SetTrigger("isSkill");
+       if(currentGauge_skill < 100)
+        {
+            currentGauge_skill += 0.1f;
+            _skillBarAmount.fillAmount = currentGauge_skill / maxGauge_skill;
+        }
 
-        Hit();
     }
 
     private void Hit()
     {
-        RaycastHit2D hit = Physics2D.BoxCast(firePos.position, new Vector2(3, 5), 0, new Vector2(1, 0), 0.1f, layerMask);
+        RaycastHit2D hit = Physics2D.BoxCast(firePos.position, transform.position, 0, new Vector2(2, 1), 0.1f, layerMask);
         Debug.DrawRay(hit.point, Vector3.right, Color.white, 0.2f);
 
         if (hit)
         {
-            
+            print("aaa");
+            //상대 총알 부실거임
         }
     }
 
     IEnumerator Fire()
     {
+
         GameObject attributePrefab;
 
-        if(StartScene.instance._wind == true && StartScene.instance._fire == false 
+        if (StartScene.instance._wind == true && StartScene.instance._fire == false
             && StartScene.instance._thunder == false && StartScene.instance._water == false)
         {
             attributePrefab = windPrefab;
+            sec = 1f;
+
         }
-        else if (StartScene.instance._wind == false && StartScene.instance._fire == true 
+        else if (StartScene.instance._wind == false && StartScene.instance._fire == true
             && StartScene.instance._thunder == false && StartScene.instance._water == false)
         {
             attributePrefab = firePrefab;
+            sec = 1.3f;
+
         }
-        else if(StartScene.instance._wind == false && StartScene.instance._fire == false
+        else if (StartScene.instance._wind == false && StartScene.instance._fire == false
             && StartScene.instance._thunder == true && StartScene.instance._water == false)
         {
             attributePrefab = thunderPrefab;
+            sec = 0.8f;
         }
         else
         {
             attributePrefab = waterPrefab;
+            sec = 0.4f;
         }
 
         while (true)
@@ -137,16 +143,23 @@ public class PlayerAttack : MonoBehaviour
             yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
             anim.SetTrigger("isAttack");
             Instantiate(attributePrefab, transform.position, Quaternion.identity);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(sec);
         }
     }
 
     IEnumerator UseSkill()
     {
-        Skill();
-        currentGauge -= 20f;
-        _skillBarAmount.fillAmount = currentGauge/maxGauge;
-        yield return new WaitForSeconds(1f);
+        while (true)
+        {            
+            if (currentGauge_skill >= 100 )
+            {
+                yield return new WaitUntil(() => Input.GetMouseButtonDown(1));
+                anim.SetTrigger("isSkill");
+                Hit();
+                currentGauge_skill -= 100f;
+            }
+            yield return new WaitForSeconds(1f);
+        }
     }
 
     IEnumerator Death(float sec)

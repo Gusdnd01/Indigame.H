@@ -49,6 +49,8 @@ public class StartScene : MonoBehaviour
     private bool _isNotStart = false;
     private bool _isStart = false;
 
+    private AudioSource _audioSource;
+
     //private RectTransform _panelImage;
 
     private Transform _player;
@@ -90,6 +92,8 @@ public class StartScene : MonoBehaviour
 
         explainTxt = _canvasTrm.Find("AttributePanel/ExplainTxt").GetComponent<Text>();
         _title = GameObject.Find("Title").GetComponent<SpriteRenderer>();
+
+        _audioSource = GetComponent<AudioSource>();
 
         //_clearImage = _panelImage.Find("").GetComponent<RectTransform>();
 
@@ -170,6 +174,8 @@ public class StartScene : MonoBehaviour
     public void WindPanel()
     {
         explainTxt.DOText("", 0.1f);
+        _audioSource.Play();
+        
         Image img = _attributeTrm.GetComponent<Image>();
         img.DOFade(0.5f, 0.1f);
 
@@ -197,6 +203,8 @@ public class StartScene : MonoBehaviour
     public void FirePanel()
     {
         explainTxt.DOText("", 0.1f);
+        _audioSource.Play();
+
         Image img = _attributeTrm.GetComponent<Image>();
         img.DOFade(0.5f, 0.1f);
 
@@ -224,6 +232,8 @@ public class StartScene : MonoBehaviour
     public void ThunderPanel()
     {
         explainTxt.DOText("", 0.1f);
+        _audioSource.Play();
+
         Image img = _attributeTrm.GetComponent<Image>();
         img.DOFade(0.5f, 0.1f);
 
@@ -251,6 +261,8 @@ public class StartScene : MonoBehaviour
     public void WaterPanel()
     {
         explainTxt.DOText("", 0.1f);
+        _audioSource.Play();
+
 
         Image img = _attributeTrm.GetComponent<Image>();
         img.DOFade(0.5f, 0.1f);
@@ -280,6 +292,7 @@ public class StartScene : MonoBehaviour
     {
         _curtain.DOAnchorPosX(960, 1f);
         _curtain_1.DOAnchorPosX(-960, 1f);
+        _audioSource.Play();
 
         StartCoroutine(SceneMove(1.5f));
     }
@@ -302,7 +315,7 @@ public class StartScene : MonoBehaviour
     {
         yield return new WaitForSeconds(sec);
 
-        SceneManager.LoadScene("Intro");
+        SceneManager.LoadScene(1);
     }
 
     IEnumerator BackSpaceEscape()
