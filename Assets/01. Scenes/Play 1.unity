@@ -2719,13 +2719,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8bcd0e9340804641ad90c08c27414ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackPrefab: {fileID: 8560416917860024247, guid: a37d8fa7b5844164ba0b0d4ea4ea14c5, type: 3}
+  _attackPrefab: {fileID: 280546816220890911, guid: 163c76323ba9c2a43bacfbae263900e6, type: 3}
   _warningPrefab: {fileID: 0}
   firstFirePos: {fileID: 1899983383}
   secondFirePos: {fileID: 693067431}
   thirdFirePos: {fileID: 2096068802}
-  sec: 0.5
-  sec_1: 1
+  sec: 0.3
+  sec_1: 0.9
 --- !u!95 &644225634
 Animator:
   serializedVersion: 3

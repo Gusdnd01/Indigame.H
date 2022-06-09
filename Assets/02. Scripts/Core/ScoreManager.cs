@@ -10,6 +10,7 @@ public class ScoreManager : MonoBehaviour
     private void Start()
     {
         bestScore = PlayerPrefs.GetInt("best", bestScore);
+        currentScore = PlayerPrefs.GetInt("current", currentScore);
     }
 
     public int GetScore()

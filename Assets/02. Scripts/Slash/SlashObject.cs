@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SlashObject : MonoBehaviour
 {
-    float moveSpeed = 10f;
+    [SerializeField] float moveSpeed;
 
     [SerializeField] private Vector3 dir;
 

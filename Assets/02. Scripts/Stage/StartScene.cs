@@ -34,6 +34,7 @@ public class StartScene : MonoBehaviour
     private RectTransform _curtain_1;
 
     private Text explainTxt;
+    private Text explainTxt_1;
 
     private RectTransform _attributeTrm;
     private SpriteRenderer _title;
@@ -91,6 +92,7 @@ public class StartScene : MonoBehaviour
         _curtain_1.DOAnchorPosX(-1920, 0.5f);
 
         explainTxt = _canvasTrm.Find("AttributePanel/ExplainTxt").GetComponent<Text>();
+        explainTxt_1 = _canvasTrm.Find("AttributePanel/ExplainTxt_1").GetComponent<Text>();
         _title = GameObject.Find("Title").GetComponent<SpriteRenderer>();
 
         _audioSource = GetComponent<AudioSource>();
@@ -174,18 +176,21 @@ public class StartScene : MonoBehaviour
     public void WindPanel()
     {
         explainTxt.DOText("", 0.1f);
+        explainTxt_1.DOText("", 0.1f);
         _audioSource.Play();
         
         Image img = _attributeTrm.GetComponent<Image>();
         img.DOFade(0.5f, 0.1f);
 
         explainTxt.gameObject.SetActive(true);
+        explainTxt_1.gameObject.SetActive(true);
         _attributeTrm.gameObject.SetActive(true);
 
         Sequence seq = DOTween.Sequence();
 
         seq.Append(_attributeTrm.DOScaleY(900, 0.5f));
-        seq.Append(explainTxt.DOText("This is Wind", 2f));
+        seq.Append(explainTxt.DOText("Speed : Normal", 2f));
+        seq.Append(explainTxt_1.DOText("Damage : High Random", 2f));
         seq.Append(_startButton.DOAnchorPosY(-400, 0.5f));
         seq.Append(_quitButton.DOAnchorPosY(-450, 0.5f));
 
@@ -203,18 +208,21 @@ public class StartScene : MonoBehaviour
     public void FirePanel()
     {
         explainTxt.DOText("", 0.1f);
+        explainTxt_1.DOText("", 0.1f);
         _audioSource.Play();
 
         Image img = _attributeTrm.GetComponent<Image>();
         img.DOFade(0.5f, 0.1f);
 
         explainTxt.gameObject.SetActive(true);
+        explainTxt_1.gameObject.SetActive(true);
         _attributeTrm.gameObject.SetActive(true);
 
         Sequence seq = DOTween.Sequence();
 
         seq.Append(_attributeTrm.DOScaleY(900, 0.5f));
-        seq.Append(explainTxt.DOText("This is Fire", 2f));
+        seq.Append(explainTxt.DOText("Speed : Slow", 2f));
+        seq.Append(explainTxt_1.DOText("Damage : High", 2f));
         seq.Append(_startButton.DOAnchorPosY(-400, 0.5f));
         seq.Append(_quitButton.DOAnchorPosY(-450, 0.5f));
 
@@ -232,18 +240,21 @@ public class StartScene : MonoBehaviour
     public void ThunderPanel()
     {
         explainTxt.DOText("", 0.1f);
+        explainTxt_1.DOText("", 0.1f);
         _audioSource.Play();
 
         Image img = _attributeTrm.GetComponent<Image>();
         img.DOFade(0.5f, 0.1f);
 
         explainTxt.gameObject.SetActive(true);
+        explainTxt_1.gameObject.SetActive(true);
         _attributeTrm.gameObject.SetActive(true);
 
         Sequence seq = DOTween.Sequence();
 
         seq.Append(_attributeTrm.DOScaleY(900, 0.5f));
-        seq.Append(explainTxt.DOText("This is Thunder", 2f));
+        seq.Append(explainTxt.DOText("Speed : Normal", 2f));
+        seq.Append(explainTxt_1.DOText("Damage : Little Random", 2f));
         seq.Append(_startButton.DOAnchorPosY(-400, 0.5f));
         seq.Append(_quitButton.DOAnchorPosY(-450, 0.5f));
 
@@ -261,6 +272,7 @@ public class StartScene : MonoBehaviour
     public void WaterPanel()
     {
         explainTxt.DOText("", 0.1f);
+        explainTxt_1.DOText("", 0.1f);
         _audioSource.Play();
 
 
@@ -268,12 +280,14 @@ public class StartScene : MonoBehaviour
         img.DOFade(0.5f, 0.1f);
 
         explainTxt.gameObject.SetActive(true);
+        explainTxt_1.gameObject.SetActive(true);
         _attributeTrm.gameObject.SetActive(true);
 
         Sequence seq = DOTween.Sequence();
 
         seq.Append(_attributeTrm.DOScaleY(900, 0.5f));
-        seq.Append(explainTxt.DOText("This is Water", 2f));
+        seq.Append(explainTxt.DOText("Speed : Fast", 2f));
+        seq.Append(explainTxt_1.DOText("Damage : Low", 2f));
         seq.Append(_startButton.DOAnchorPosY(-400, 0.5f));
         seq.Append(_quitButton.DOAnchorPosY(-450, 0.5f));
 
@@ -304,6 +318,7 @@ public class StartScene : MonoBehaviour
         _attributeTrm.DOScaleY(0, 0.5f);
 
         explainTxt.DOText("", 0.1f);
+        explainTxt_1.DOText("", 0.1f);
 
         _windButton.interactable = true;
         _fireButton.interactable = true;

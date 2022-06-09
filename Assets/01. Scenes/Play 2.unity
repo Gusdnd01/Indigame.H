@@ -2724,7 +2724,7 @@ MonoBehaviour:
   firstFirePos: {fileID: 1899983383}
   secondFirePos: {fileID: 693067431}
   thirdFirePos: {fileID: 2096068802}
-  sec: 0.3
+  sec: 0.2
   sec_1: 0.5
 --- !u!95 &644225634
 Animator:
