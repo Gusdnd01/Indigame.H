@@ -12,4 +12,9 @@ public class SlashObject : MonoBehaviour
     {
         transform.position += dir * moveSpeed * Time.deltaTime;
     }
+
+    public void DestroyObject()
+    {
+        Destroy(gameObject);
+    }
 }

@@ -15,7 +15,7 @@ public class EndingSceneManager : MonoBehaviour
     {
         bestScore = PlayerPrefs.GetInt("best", 0);
         bestScoreTxt.DOText($"Best Hunts : <{bestScore}>", 2f);
-        currentScore = PlayerPrefs.GetInt("Current Score", 0);
+        currentScore = PlayerPrefs.GetInt("current", 0);
         currentScoreTxt.DOText($"Today Hunts : <{currentScore}>", 2f);
     }
 }

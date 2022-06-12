@@ -8,7 +8,7 @@ public class Destroyer : MonoBehaviour
 
     private void Update()
     {
-        if(Mathf.Abs(_stageData.LimitMax.x) > transform.position.x)
+        if(_stageData.LimitMin.x - 2 > transform.position.x)
         {
             Destroy(gameObject);
         }

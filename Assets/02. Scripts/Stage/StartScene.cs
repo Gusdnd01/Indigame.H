@@ -21,6 +21,7 @@ public class StartScene : MonoBehaviour
     private RectTransform _panelImage;
     private RectTransform _attributePanel;
     private RectTransform _attributeImage;
+    private RectTransform _howToPlayPanel;
 
     private RectTransform _startButton;
     private RectTransform _quitButton;
@@ -35,6 +36,7 @@ public class StartScene : MonoBehaviour
 
     private Text explainTxt;
     private Text explainTxt_1;
+    private Text explainTxt_2;
 
     private RectTransform _attributeTrm;
     private SpriteRenderer _title;
@@ -73,6 +75,7 @@ public class StartScene : MonoBehaviour
         #region °´Ã¼ Å½»ö ½ºÅ©¸³Æ®
         _canvasTrm = GameObject.Find("Canvas").GetComponent<RectTransform>();
         _panelImage = _canvasTrm.Find("Start").GetComponent<RectTransform>();
+        _howToPlayPanel = _canvasTrm.Find("HowToPlay").GetComponent<RectTransform>();
         _attributePanel = _canvasTrm.Find("Propety").GetComponent<RectTransform>();
         _attributeImage = _attributePanel.Find("PropetyChoice").GetComponent <RectTransform>();
 
@@ -93,6 +96,7 @@ public class StartScene : MonoBehaviour
 
         explainTxt = _canvasTrm.Find("AttributePanel/ExplainTxt").GetComponent<Text>();
         explainTxt_1 = _canvasTrm.Find("AttributePanel/ExplainTxt_1").GetComponent<Text>();
+        explainTxt_2 = _canvasTrm.Find("AttributePanel/ExplainTxt_2").GetComponent<Text>();
         _title = GameObject.Find("Title").GetComponent<SpriteRenderer>();
 
         _audioSource = GetComponent<AudioSource>();
@@ -143,6 +147,16 @@ public class StartScene : MonoBehaviour
         PropetyChoice();
     }
 
+    public void HowToPlay()
+    {
+        _howToPlayPanel.DOScale(new Vector2(1, 1), 1f);
+    }
+
+    public void HowToPlayExit()
+    {
+        _howToPlayPanel.DOScale(new Vector2(0, 0), 1f);
+    }
+
     private void PropetyChoice()
     {
         _isNotStart = true;
@@ -177,6 +191,7 @@ public class StartScene : MonoBehaviour
     {
         explainTxt.DOText("", 0.1f);
         explainTxt_1.DOText("", 0.1f);
+        explainTxt_2.DOText("", 0.1f);
         _audioSource.Play();
         
         Image img = _attributeTrm.GetComponent<Image>();
@@ -184,11 +199,14 @@ public class StartScene : MonoBehaviour
 
         explainTxt.gameObject.SetActive(true);
         explainTxt_1.gameObject.SetActive(true);
+        explainTxt_2.gameObject.SetActive(true);
         _attributeTrm.gameObject.SetActive(true);
 
         Sequence seq = DOTween.Sequence();
 
         seq.Append(_attributeTrm.DOScaleY(900, 0.5f));
+        seq.Append(explainTxt_2.DOColor(Color.green, 0.5f));
+        seq.Append(explainTxt_2.DOText("Wind", 0.1f));
         seq.Append(explainTxt.DOText("Speed : Normal", 2f));
         seq.Append(explainTxt_1.DOText("Damage : High Random", 2f));
         seq.Append(_startButton.DOAnchorPosY(-400, 0.5f));
@@ -209,6 +227,7 @@ public class StartScene : MonoBehaviour
     {
         explainTxt.DOText("", 0.1f);
         explainTxt_1.DOText("", 0.1f);
+        explainTxt_2.DOText("", 0.1f);
         _audioSource.Play();
 
         Image img = _attributeTrm.GetComponent<Image>();
@@ -216,11 +235,14 @@ public class StartScene : MonoBehaviour
 
         explainTxt.gameObject.SetActive(true);
         explainTxt_1.gameObject.SetActive(true);
+        explainTxt_2.gameObject.SetActive(true);
         _attributeTrm.gameObject.SetActive(true);
 
         Sequence seq = DOTween.Sequence();
 
         seq.Append(_attributeTrm.DOScaleY(900, 0.5f));
+        seq.Append(explainTxt_2.DOColor(Color.red, 0.5f));
+        seq.Append(explainTxt_2.DOText("Fire", 0.1f));
         seq.Append(explainTxt.DOText("Speed : Slow", 2f));
         seq.Append(explainTxt_1.DOText("Damage : High", 2f));
         seq.Append(_startButton.DOAnchorPosY(-400, 0.5f));
@@ -241,6 +263,7 @@ public class StartScene : MonoBehaviour
     {
         explainTxt.DOText("", 0.1f);
         explainTxt_1.DOText("", 0.1f);
+        explainTxt_2.DOText("", 0.1f);
         _audioSource.Play();
 
         Image img = _attributeTrm.GetComponent<Image>();
@@ -248,11 +271,14 @@ public class StartScene : MonoBehaviour
 
         explainTxt.gameObject.SetActive(true);
         explainTxt_1.gameObject.SetActive(true);
+        explainTxt_2.gameObject.SetActive(true);
         _attributeTrm.gameObject.SetActive(true);
 
         Sequence seq = DOTween.Sequence();
 
         seq.Append(_attributeTrm.DOScaleY(900, 0.5f));
+        seq.Append(explainTxt_2.DOColor(Color.yellow, 0.5f));
+        seq.Append(explainTxt_2.DOText("Thunder", 0.1f));
         seq.Append(explainTxt.DOText("Speed : Normal", 2f));
         seq.Append(explainTxt_1.DOText("Damage : Little Random", 2f));
         seq.Append(_startButton.DOAnchorPosY(-400, 0.5f));
@@ -273,6 +299,7 @@ public class StartScene : MonoBehaviour
     {
         explainTxt.DOText("", 0.1f);
         explainTxt_1.DOText("", 0.1f);
+        explainTxt_2.DOText("", 0.1f);
         _audioSource.Play();
 
 
@@ -281,11 +308,14 @@ public class StartScene : MonoBehaviour
 
         explainTxt.gameObject.SetActive(true);
         explainTxt_1.gameObject.SetActive(true);
+        explainTxt_2.gameObject.SetActive(true);
         _attributeTrm.gameObject.SetActive(true);
 
         Sequence seq = DOTween.Sequence();
 
         seq.Append(_attributeTrm.DOScaleY(900, 0.5f));
+        seq.Append(explainTxt_2.DOColor(Color.blue, 0.5f));
+        seq.Append(explainTxt_2.DOText("Water", 0.1f));
         seq.Append(explainTxt.DOText("Speed : Fast", 2f));
         seq.Append(explainTxt_1.DOText("Damage : Low", 2f));
         seq.Append(_startButton.DOAnchorPosY(-400, 0.5f));
@@ -317,6 +347,7 @@ public class StartScene : MonoBehaviour
         _quitButton.DOAnchorPosY(-660, 0.5f);
         _attributeTrm.DOScaleY(0, 0.5f);
 
+        explainTxt_2.DOText("", 0.1f);
         explainTxt.DOText("", 0.1f);
         explainTxt_1.DOText("", 0.1f);
 

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -7820788598900725218}
   - component: {fileID: -7377628780783865304}
   - component: {fileID: -3179176745814030456}
+  - component: {fileID: 1345333647788618689}
   m_Layer: 6
   m_Name: BossAttackPrefab
   m_TagString: Bullet
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1329573453
   m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 6124843856088816545, guid: 624d818f8c0b9b24e81bb827538c6ddd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
@@ -128,7 +129,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.0062064454}
@@ -144,3 +145,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.32, y: 0.15552892}
   m_EdgeRadius: 0
+--- !u!114 &1345333647788618689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8560416917860024247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 870fdfd33ba83314780799a31f3a1ecb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stageData: {fileID: 11400000, guid: f7d461df940f92041a7eb94fc69d3e28, type: 2}

@@ -19,9 +19,6 @@ public class Boss : MonoBehaviour
     private float currentHp;
     private float playerDamage;
 
-    private float currentTime;
-    private float maxTime;
-
     private Image _hpBar;
 
     private Animator anim;
@@ -35,6 +32,7 @@ public class Boss : MonoBehaviour
     private RectTransform curtain_1;
 
     private ScoreManager scoreObj;
+    private int score;
 
     private void Start()
     {
@@ -48,8 +46,6 @@ public class Boss : MonoBehaviour
 
         _hpBar = GameObject.Find("Canvas/BossHpBar/Amount").GetComponent<Image>();
         currentHp = _maxBossHp;
-
-        print(currentHp);
 
         scoreObj = GameObject.Find("UIManager").GetComponent<ScoreManager>();
     }
@@ -82,28 +78,20 @@ public class Boss : MonoBehaviour
             {
                 playerDamage = UnityEngine.Random.Range(5, 10);
             }
-            if (currentHp <= 0)
+            if (currentHp <= 0 && isDeath == false)
             {
                 isDeath = true;
                 anim.SetTrigger("isDeath");
                 StartCoroutine(Death(1f));
+                StopCoroutine(Spawn());
                 scoreObj.SetScore(scoreObj.GetScore() + 1);
             }
-            Debug.Log(playerDamage);
-        }
-    }
-
-    void Update()
-    {
-        if(isDeath != true)
-        {
-            StopCoroutine(Spawn());
         }
     }
 
     IEnumerator Spawn()
     {
-        while (true) 
+        while (isDeath == false) 
         {
             yield return new WaitForSeconds(UnityEngine.Random.Range(sec, sec_1));
             int rand = UnityEngine.Random.Range(1, 4);

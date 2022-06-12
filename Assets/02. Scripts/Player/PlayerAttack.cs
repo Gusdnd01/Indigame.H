@@ -49,14 +49,14 @@ public class PlayerAttack : MonoBehaviour
     void Start()
     {
         StartCoroutine(Fire());
-
+        #region °´Ã¼ Å½»ö
         _hpBar = GameObject.Find("Canvas/HpBar").GetComponent<RectTransform>();
         _skillBar = GameObject.Find("Canvas/SkillBar").GetComponent<RectTransform>();
         _hpBarAmount = _hpBar.Find("Amount").GetComponent<Image>();
         _skillBarAmount = _skillBar.Find("Amount").GetComponent<Image>();
         _curtain = GameObject.Find("Canvas/Curtain").GetComponent<RectTransform>();
         _curtain_1 = GameObject.Find("Canvas/Curtain_1").GetComponent<RectTransform>();
-
+        #endregion
         _uiManager = GameObject.FindObjectOfType<UIManager>();
         currentHp = maxHp;
         currentGauge = maxGauge;
@@ -66,13 +66,14 @@ public class PlayerAttack : MonoBehaviour
         StartCoroutine(UseSkill());
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         RectTransform rect = _hpBar.GetComponent<RectTransform>();
 
         if (collision.gameObject.CompareTag("Bullet"))
         {
             rect.DOShakeAnchorPos(1f, 10, 10);
+            damage = UnityEngine.Random.Range(3, 5);
             Destroy(collision.gameObject);
             Instantiate(bloodPrefab, transform.position, Quaternion.identity);
             currentHp -= damage;
@@ -97,13 +98,13 @@ public class PlayerAttack : MonoBehaviour
 
     private void Hit()
     {
-        RaycastHit2D hit = Physics2D.BoxCast(firePos.position, transform.position, 0, new Vector2(2, 1), 0.1f, layerMask);
-        Debug.DrawRay(hit.point, Vector3.right, Color.white, 0.2f);
+        RaycastHit2D hit = Physics2D.Raycast(firePos.position, Vector2.right, 3, layerMask);
+        Debug.DrawRay(hit.point, Vector3.right, Color.blue, 1f);
 
         if (hit)
         {
-            print("aaa");
-            //»ó´ë ÃÑ¾Ë ºÎ½Ç°ÅÀÓ
+            print("asdadaf");
+            Destroy(hit.transform.gameObject);
         }
     }
 
@@ -154,11 +155,11 @@ public class PlayerAttack : MonoBehaviour
             if (currentGauge_skill >= 100 )
             {
                 yield return new WaitUntil(() => Input.GetMouseButtonDown(1));
-                anim.SetTrigger("isSkill");
                 Hit();
+                anim.SetTrigger("isSkill");
                 currentGauge_skill -= 100f;
             }
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.1f);
         }
     }
 

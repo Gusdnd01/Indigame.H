@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 111385726240264378}
   - component: {fileID: -5531925881551895622}
   - component: {fileID: -2575977434425309854}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: projectile_sprite_0
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -128,7 +128,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.000000011175871, y: -0.0011612028}
