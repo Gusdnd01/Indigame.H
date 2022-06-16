@@ -27,12 +27,12 @@ public class PlayerAttack : MonoBehaviour
     [Header("데미지 수치관련")]
     [SerializeField] private float damage;
     [SerializeField] private float maxHp;
-    private float currentHp;
+    [SerializeField] private float currentHp;
     float sec;
 
     [Header("스킬 게이지 관련")]
     [SerializeField] private float maxGauge = 100;
-    private float currentGauge;
+    [SerializeField] private float currentGauge;
 
     [SerializeField] private float maxGauge_skill;
     [SerializeField] private float currentGauge_skill;
@@ -46,6 +46,8 @@ public class PlayerAttack : MonoBehaviour
     private RectTransform _curtain;
     private RectTransform _curtain_1;
 
+    Image blink;
+
     void Start()
     {
         StartCoroutine(Fire());
@@ -56,6 +58,7 @@ public class PlayerAttack : MonoBehaviour
         _skillBarAmount = _skillBar.Find("Amount").GetComponent<Image>();
         _curtain = GameObject.Find("Canvas/Curtain").GetComponent<RectTransform>();
         _curtain_1 = GameObject.Find("Canvas/Curtain_1").GetComponent<RectTransform>();
+        blink = GameObject.Find("Canvas/Blink").GetComponent<Image>();
         #endregion
         _uiManager = GameObject.FindObjectOfType<UIManager>();
         currentHp = maxHp;
@@ -100,11 +103,13 @@ public class PlayerAttack : MonoBehaviour
     {
         RaycastHit2D hit = Physics2D.Raycast(firePos.position, Vector2.right, 3, layerMask);
         Debug.DrawRay(hit.point, Vector3.right, Color.blue, 1f);
-
+        Sequence seq = DOTween.Sequence();
         if (hit)
         {
             print("asdadaf");
             Destroy(hit.transform.gameObject);
+            seq.Append(blink.DOFade(0.8f, 0.1f));
+            seq.Append(blink.DOFade(0f, 0.1f));
         }
     }
 

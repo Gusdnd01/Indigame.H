@@ -8,14 +8,10 @@ public class EndingSceneManager : MonoBehaviour
 {
     public Text currentScoreTxt;
     public Text bestScoreTxt;
-    int currentScore;
-    int bestScore;
 
     private void Start()
     {
-        bestScore = PlayerPrefs.GetInt("best", 0);
-        bestScoreTxt.DOText($"Best Hunts : <{bestScore}>", 2f);
-        currentScore = PlayerPrefs.GetInt("current", 0);
-        currentScoreTxt.DOText($"Today Hunts : <{currentScore}>", 2f);
+        bestScoreTxt.DOText($"Best Hunts : <{PlayerPrefs.GetInt("Score")}>", 2f);
+        currentScoreTxt.DOText($"Today Hunts : <{PlayerPrefs.GetInt("Best")}>", 2f);
     }
 }

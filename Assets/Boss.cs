@@ -31,8 +31,19 @@ public class Boss : MonoBehaviour
     private RectTransform curtain;
     private RectTransform curtain_1;
 
-    private ScoreManager scoreObj;
-    private int score;
+    int score;
+    public int Score
+    {
+        set => Mathf.Max(0, value);
+        get => score;
+    }
+
+    int bestScore;
+    public int BestScore
+    {
+        set => bestScore = Mathf.Max(0, value);
+        get => bestScore;
+    }
 
     private void Start()
     {
@@ -46,8 +57,6 @@ public class Boss : MonoBehaviour
 
         _hpBar = GameObject.Find("Canvas/BossHpBar/Amount").GetComponent<Image>();
         currentHp = _maxBossHp;
-
-        scoreObj = GameObject.Find("UIManager").GetComponent<ScoreManager>();
     }
 
     
@@ -84,7 +93,14 @@ public class Boss : MonoBehaviour
                 anim.SetTrigger("isDeath");
                 StartCoroutine(Death(1f));
                 StopCoroutine(Spawn());
-                scoreObj.SetScore(scoreObj.GetScore() + 1);
+                score += 1;
+                PlayerPrefs.SetInt("Score", score);
+
+                if(score > bestScore)
+                {
+                    bestScore = score;
+                    PlayerPrefs.SetInt("Best", bestScore);
+                }
             }
         }
     }
@@ -103,6 +119,7 @@ public class Boss : MonoBehaviour
             else if (rand == 2)
             {
                 Instantiate(_attackPrefab, secondFirePos.position, Quaternion.identity);
+                Instantiate(_warningPrefab, secondFirePos.position, Quaternion.identity);
                 anim.SetTrigger("isAttack_1");
             }
             else if (rand == 3)
