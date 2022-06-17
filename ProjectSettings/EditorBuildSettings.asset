@@ -16,10 +16,10 @@ EditorBuildSettings:
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/01. Scenes/Play 1.unity
-    guid: 7eb22758f821ceb4faa4dba9f7e3a8be
+    guid: 189a60db85c936f42908a2871cd92d5d
   - enabled: 1
     path: Assets/01. Scenes/Play 2.unity
-    guid: 8470f59d734697344a5ad49b706d1417
+    guid: b5d57b3c84eb78e489398e58415369ab
   - enabled: 1
     path: Assets/01. Scenes/Ending.unity
     guid: e19bf980bd77a3245b6325a2a7587ed5
