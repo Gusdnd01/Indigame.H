@@ -16,6 +16,11 @@ public class StartScene : MonoBehaviour
     private RectTransform _attributeImage;
     private RectTransform _howToPlayPanel;
 
+    Material material;
+    private bool isDissolve = false;
+    private bool isDissolveBack = false;
+    float fade = 1f;
+
     private RectTransform _startButton;
     private RectTransform _quitButton;
 
@@ -90,6 +95,7 @@ public class StartScene : MonoBehaviour
         explainTxt_1 = _canvasTrm.Find("AttributePanel/ExplainTxt_1").GetComponent<Text>();
         explainTxt_2 = _canvasTrm.Find("AttributePanel/ExplainTxt_2").GetComponent<Text>();
         _title = GameObject.Find("Title").GetComponent<SpriteRenderer>();
+        material = _title.GetComponent<SpriteRenderer>().material;
 
         _audioSource = GetComponent<AudioSource>();
 
@@ -118,15 +124,40 @@ public class StartScene : MonoBehaviour
         {
             StartCoroutine(Exit());
         }
+
+        if (isDissolve)
+        {
+            fade -= Time.deltaTime;
+
+            if (fade <= 0f)
+            {
+                fade = 0f;
+                isDissolve = false;
+            }
+
+            material.SetFloat("_Dissolve", fade);
+        }
+
+        if (isDissolveBack)
+        {
+            fade += Time.deltaTime;
+
+            if (fade >= 0f)
+            {
+                fade = 1f;
+                isDissolveBack = false;
+            }
+
+            material.SetFloat("_Dissolve", fade);
+        }
     }
     
     public void Falling()
     {
         _animator.SetBool("Falling", true);
-
+        isDissolve = true;
         Sequence seq = DOTween.Sequence();
 
-        _title.material.DOColor(Color.black, 1f);
         if(_isFall == false)
         {
             seq.Append(_player.DOMoveY(3.5f, 0.5f));
@@ -347,26 +378,31 @@ public class StartScene : MonoBehaviour
 
     IEnumerator BackSpaceEscape()
     {
-        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Backspace));
+        while (true)
+        {
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Backspace));
 
-        yield return new WaitForSeconds(2.5f);
+            yield return new WaitForSeconds(2.5f);
+            isDissolveBack = true;
 
-        Sequence seq = DOTween.Sequence();
+            Sequence seq = DOTween.Sequence();
 
-        _title.material.DOColor(Color.white, 1f);
-        seq.Append(_attributeImage.DOAnchorPosY(-800, 0.5f));
-        seq.Join(_startButton.DOAnchorPosY(-600, 0.5f));
-        seq.Join(_quitButton.DOAnchorPosY(-660, 0.5f));
-        seq.Join(_attributePanel.DOAnchorPosY(-1080, 0.5f));
-        seq.Join(explainTxt.DOText("", 0.1f));
+            seq.Append(_attributeImage.DOAnchorPosY(-800, 0.5f));
+            seq.Join(_startButton.DOAnchorPosY(-600, 0.5f));
+            seq.Join(_quitButton.DOAnchorPosY(-660, 0.5f));
+            seq.Join(_attributePanel.DOAnchorPosY(-1080, 0.5f));
+            explainTxt.DOText("", 0.1f);
+            explainTxt_1.DOText("", 0.1f);
+            explainTxt_2.DOText("", 0.1f);
 
-        _attributeTrm.gameObject.SetActive(false);
-        _isNotStart = false;
+            _attributeTrm.gameObject.SetActive(false);
+            _isNotStart = false;
 
-        _windButton.interactable = true;
-        _fireButton.interactable = true;
-        _thunderButton.interactable = true;
-        _waterButton.interactable = true;
+            _windButton.interactable = true;
+            _fireButton.interactable = true;
+            _thunderButton.interactable = true;
+            _waterButton.interactable = true;
+        }
     }
 
     IEnumerator Exit()
