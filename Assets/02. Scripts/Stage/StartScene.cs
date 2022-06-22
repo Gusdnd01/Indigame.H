@@ -16,6 +16,9 @@ public class StartScene : MonoBehaviour
     private RectTransform _attributeImage;
     private RectTransform _howToPlayPanel;
 
+    private Button startButton;
+    private Button howToPlayButton;
+
     Material material;
     private bool isDissolve = false;
     private bool isDissolveBack = false;
@@ -69,6 +72,7 @@ public class StartScene : MonoBehaviour
 
     void Start()
     {
+        PlayerPrefs.SetInt("Score", 0);
         #region °´Ã¼ Å½»ö ½ºÅ©¸³Æ®
         _canvasTrm = GameObject.Find("Canvas").GetComponent<RectTransform>();
         _panelImage = _canvasTrm.Find("Start").GetComponent<RectTransform>();
@@ -106,6 +110,9 @@ public class StartScene : MonoBehaviour
         _animator = GameObject.Find("Player").GetComponent<Animator>();
         _player = GameObject.Find("Player").GetComponent<Transform>();
         playerAttack = FindObjectOfType<PlayerAttack>();
+
+        startButton = _panelImage.Find("Button").GetComponent<Button>();
+        howToPlayButton = _panelImage.Find("Button (1)").GetComponent<Button>();
         #endregion
         Image img = _panelImage.GetComponent<Image>();
 
@@ -172,11 +179,17 @@ public class StartScene : MonoBehaviour
 
     public void HowToPlay()
     {
+        startButton.interactable = false;
+        howToPlayButton.interactable = false;
+
         _howToPlayPanel.DOScale(new Vector2(1, 1), 1f);
     }
 
     public void HowToPlayExit()
     {
+        startButton.interactable = true;
+        howToPlayButton.interactable = true;
+
         _howToPlayPanel.DOScale(new Vector2(0, 0), 1f);
     }
 
@@ -228,8 +241,8 @@ public class StartScene : MonoBehaviour
         seq.Append(_attributeTrm.DOScaleY(1, 0.5f));
         seq.Append(explainTxt_2.DOColor(Color.green, 0.5f));
         seq.Append(explainTxt_2.DOText("Wind", 0.1f));
-        seq.Append(explainTxt.DOText("Speed : Normal", 2f));
-        seq.Append(explainTxt_1.DOText("Damage : 1 ~ 20", 2f));
+        seq.Append(explainTxt.DOText("Speed : Normal", 1f));
+        seq.Append(explainTxt_1.DOText("Damage : 1 ~ 20", 1f));
         seq.Append(_startButton.DOAnchorPosY(-400, 0.5f));
         seq.Append(_quitButton.DOAnchorPosY(0, 0.5f));
 
@@ -261,8 +274,8 @@ public class StartScene : MonoBehaviour
         seq.Append(_attributeTrm.DOScaleY(1, 0.5f));
         seq.Append(explainTxt_2.DOColor(Color.red, 0.5f));
         seq.Append(explainTxt_2.DOText("Fire", 0.1f));
-        seq.Append(explainTxt.DOText("Speed : Slow", 2f));
-        seq.Append(explainTxt_1.DOText("Damage : 20", 2f));
+        seq.Append(explainTxt.DOText("Speed : Slow", 1f));
+        seq.Append(explainTxt_1.DOText("Damage : 20", 1f));
         seq.Append(_startButton.DOAnchorPosY(-400, 0.5f));
         seq.Append(_quitButton.DOAnchorPosY(0, 0.5f));
 
@@ -294,8 +307,8 @@ public class StartScene : MonoBehaviour
         seq.Append(_attributeTrm.DOScaleY(1, 0.5f));
         seq.Append(explainTxt_2.DOColor(Color.yellow, 0.5f));
         seq.Append(explainTxt_2.DOText("Thunder", 0.1f));
-        seq.Append(explainTxt.DOText("Speed : Normal", 2f));
-        seq.Append(explainTxt_1.DOText("Damage : 5 ~ 15", 2f));
+        seq.Append(explainTxt.DOText("Speed : Normal", 1f));
+        seq.Append(explainTxt_1.DOText("Damage : 5 ~ 15", 1f));
         seq.Append(_startButton.DOAnchorPosY(-400, 0.5f));
         seq.Append(_quitButton.DOAnchorPosY(0, 0.5f));
 
@@ -328,8 +341,8 @@ public class StartScene : MonoBehaviour
         seq.Append(_attributeTrm.DOScaleY(1, 0.5f));
         seq.Append(explainTxt_2.DOColor(Color.blue, 0.5f));
         seq.Append(explainTxt_2.DOText("Water", 0.1f));
-        seq.Append(explainTxt.DOText("Speed : Fast", 2f));
-        seq.Append(explainTxt_1.DOText("Damage : 1 ~ 5", 2f));
+        seq.Append(explainTxt.DOText("Speed : Fast", 1f));
+        seq.Append(explainTxt_1.DOText("Damage : 1 ~ 5", 1f));
         seq.Append(_startButton.DOAnchorPosY(-400, 0.5f));
         seq.Append(_quitButton.DOAnchorPosY(0, 0.5f));
 

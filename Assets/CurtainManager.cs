@@ -30,6 +30,8 @@ public class CurtainManager : MonoBehaviour
     public void MainMenu()
     {
         StartCoroutine(MoveMenu(2.5f));
+        PlayerPrefs.SetInt("Score", 0);
+        print(PlayerPrefs.GetInt("Score"));
     }
 
     public void SkipIntro()

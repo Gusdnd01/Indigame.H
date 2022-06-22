@@ -38,7 +38,7 @@ Material:
     m_Floats:
     - _Dissolve: 1
     - _DissolveOutLine: 0.2
-    - _NoiseScale: 2.5
+    - _NoiseScale: 85
     m_Colors:
     - Color_f93e3eb268b6438b8ae47aca0abedb47: {r: 1, g: 0, b: 0, a: 1}
     - _DissolveColor: {r: 1, g: 0, b: 0, a: 1}

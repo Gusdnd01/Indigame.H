@@ -17,7 +17,7 @@ public class GameStart : MonoBehaviour
 
         seq.Append(BossNamePanel.DOAnchorPosX(-50, 0.5f));
         seq.Append(BossNamePanel.DOAnchorPosX(0, 2f));
-        seq.Append(BossNamePanel.DOAnchorPosX(1920, 0.5f));
+        seq.Append(BossNamePanel.DOAnchorPosX(2000, 0.5f));
     }
 
     IEnumerator CamActive(float sec) 

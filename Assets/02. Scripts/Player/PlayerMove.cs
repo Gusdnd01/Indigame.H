@@ -20,6 +20,8 @@ public class PlayerMove : MonoBehaviour
 
         rb.velocity = dir * speed;
 
+        
+
         //float x = transform.position.x;
         //float y = transform.position.y;
 
@@ -27,6 +29,5 @@ public class PlayerMove : MonoBehaviour
         //y = Mathf.Clamp(y, stageData.LimitMin.y, stageData.LimitMax.y);
 
         //transform.position = new Vector3(x,y,0);
-
     }
 }

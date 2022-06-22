@@ -7,12 +7,12 @@ using DG.Tweening;
 public class EndingSceneManager : MonoBehaviour
 {
     public Text currentScoreTxt;
-    Boss boss;
+    private int currentScore;
 
     private void Start()
     {
-        
+        currentScore = PlayerPrefs.GetInt("Score", 0);
 
-        currentScoreTxt.DOText($"Today Hunts : <{boss.Score}>", 2f);
+        currentScoreTxt.DOText($"Today Hunts : <{currentScore}>", 2f);
     }
 }

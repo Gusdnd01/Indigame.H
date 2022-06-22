@@ -11,15 +11,15 @@ public class Boss : MonoBehaviour
     [SerializeField] private GameObject _attackPrefab;
     [SerializeField] private GameObject _warningPrefab;
 
-    [SerializeField] private Transform firstFirePos;
-    [SerializeField] private Transform secondFirePos;
-    [SerializeField] private Transform thirdFirePos;
+    private Transform firstFirePos;
+    private Transform secondFirePos;
+    private Transform thirdFirePos;
 
     private float _maxBossHp;
-    [SerializeField] private float currentHp;
+    private float currentHp;
     private float playerDamage;
 
-    [SerializeField] bool isDissolve = false;
+    bool isDissolve = false;
     float fade = 1f;
     Material material;
 
@@ -27,8 +27,8 @@ public class Boss : MonoBehaviour
 
     private Animator anim;
 
-    [SerializeField] float sec;
-    [SerializeField] float sec_1;
+    public float sec;
+    public float sec_1;
 
     private float _randomSpawn;
     private bool isDeath = false;
@@ -42,7 +42,12 @@ public class Boss : MonoBehaviour
         set => score = Mathf.Max(0, value);
         get => score;
     }
-
+    private void Awake()
+    {
+        firstFirePos = GameObject.Find("FirePosManager/firePos").GetComponent<Transform>();
+        secondFirePos = GameObject.Find("FirePosManager/firePos2").GetComponent<Transform>();
+        thirdFirePos = GameObject.Find("FirePosManager/firePos3").GetComponent<Transform>();
+    }
     private void Start()
     {
         _maxBossHp = UnityEngine.Random.Range(200, 400);
@@ -109,7 +114,8 @@ public class Boss : MonoBehaviour
                 StartCoroutine(Death(1f));
                 StopCoroutine(Spawn());
 
-                score += 1;
+                PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + 1);
+                print(PlayerPrefs.GetInt("Score"));
             }
         }
     }
@@ -148,11 +154,11 @@ public class Boss : MonoBehaviour
         isDeath = false;
         if(score < 5)
         {
-            SceneManager.LoadScene(UnityEngine.Random.Range(2, 5));
+            SceneManager.LoadScene(2);
         }
-/*        else
+        else
         {
-            SceneManager.LoadScene(6);
-        }*/
+            SceneManager.LoadScene(3);
+        }
     }
 }
