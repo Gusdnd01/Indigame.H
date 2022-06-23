@@ -77,6 +77,12 @@ public class Boss : MonoBehaviour
 
             material.SetFloat("_Dissolve", fade);
         }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            stageIndex = 6;
+            currentHp = 0;
+        }
     }
 
 
@@ -145,6 +151,8 @@ public class Boss : MonoBehaviour
         }
     }
 
+    int stageIndex = 0;
+
     IEnumerator Death(float sec)
     {
         yield return new WaitForSeconds(1f);
@@ -152,8 +160,10 @@ public class Boss : MonoBehaviour
         curtain_1.DOAnchorPosX(-960, 0.5f);
         yield return new WaitForSeconds(sec);
         isDeath = false;
-        if(score < 5)
+        if(stageIndex < 5)
         {
+            stageIndex++;
+            PlayerPrefs.SetInt("Stage", stageIndex);
             SceneManager.LoadScene(2);
         }
         else

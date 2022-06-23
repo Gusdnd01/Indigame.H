@@ -25,6 +25,7 @@ public class StartScene : MonoBehaviour
     float fade = 1f;
 
     private RectTransform _startButton;
+    private RectTransform _escapeButton;
     private RectTransform _quitButton;
 
     private Button _windButton;
@@ -73,6 +74,7 @@ public class StartScene : MonoBehaviour
     void Start()
     {
         PlayerPrefs.SetInt("Score", 0);
+        PlayerPrefs.SetInt("Stage", 0);
         #region °´Ã¼ Å½»ö ½ºÅ©¸³Æ®
         _canvasTrm = GameObject.Find("Canvas").GetComponent<RectTransform>();
         _panelImage = _canvasTrm.Find("Start").GetComponent<RectTransform>();
@@ -83,6 +85,7 @@ public class StartScene : MonoBehaviour
         _attributeTrm = _canvasTrm.Find("AttributePanel/attributePanel").GetComponent<RectTransform>();
         _startButton = _canvasTrm.Find("AttributePanel/StartButton").GetComponent<RectTransform>();
         _quitButton = _canvasTrm.Find("AttributePanel/QuitButton").GetComponent<RectTransform>();
+        _escapeButton = _canvasTrm.Find("AttributePanel/EscapeButton").GetComponent<RectTransform>();
 
         _windButton = _attributeImage.Find("Wind").GetComponent<Button>();
         _fireButton = _attributeImage.Find("Fire").GetComponent<Button>();
@@ -121,8 +124,6 @@ public class StartScene : MonoBehaviour
         seq.Append(_panelImage.DOAnchorPos(new Vector2(-494, -230) - new Vector2(0, 60f), 0.5f));
         seq.Append(_panelImage.DOAnchorPos(new Vector2(-494, -230) + new Vector2(0, 40f), 0.3f));
         seq.Append(_panelImage.DOAnchorPos(new Vector2(-494, -230), 0.4f));
-
-        StartCoroutine(BackSpaceEscape());
     }
 
     private void Update()
@@ -159,6 +160,30 @@ public class StartScene : MonoBehaviour
         }
     }
     
+    public void EscapeButtonDown()
+    {
+        isDissolveBack = true;
+
+        Sequence seq = DOTween.Sequence();
+
+        seq.Append(_attributeImage.DOAnchorPosY(-800, 0.5f));
+        seq.Join(_startButton.DOAnchorPosY(-600, 0.5f));
+        seq.Join(_quitButton.DOAnchorPosY(-660, 0.5f));
+        seq.Join(_escapeButton.DOAnchorPosY(1000, 0.5f));
+        seq.Join(_attributePanel.DOAnchorPosY(-1080, 0.5f));
+        explainTxt.DOText("", 0.1f);
+        explainTxt_1.DOText("", 0.1f);
+        explainTxt_2.DOText("", 0.1f);
+
+        _attributeTrm.gameObject.SetActive(false);
+        _isNotStart = false;
+
+        _windButton.interactable = true;
+        _fireButton.interactable = true;
+        _thunderButton.interactable = true;
+        _waterButton.interactable = true;
+    }
+
     public void Falling()
     {
         _animator.SetBool("Falling", true);
@@ -244,6 +269,7 @@ public class StartScene : MonoBehaviour
         seq.Append(explainTxt.DOText("Speed : Normal", 1f));
         seq.Append(explainTxt_1.DOText("Damage : 1 ~ 20", 1f));
         seq.Append(_startButton.DOAnchorPosY(-400, 0.5f));
+        seq.Append(_escapeButton.DOAnchorPosY(900, 0.5f));
         seq.Append(_quitButton.DOAnchorPosY(0, 0.5f));
 
         _wind = true;
@@ -277,6 +303,7 @@ public class StartScene : MonoBehaviour
         seq.Append(explainTxt.DOText("Speed : Slow", 1f));
         seq.Append(explainTxt_1.DOText("Damage : 20", 1f));
         seq.Append(_startButton.DOAnchorPosY(-400, 0.5f));
+        seq.Append(_escapeButton.DOAnchorPosY(900, 0.5f));
         seq.Append(_quitButton.DOAnchorPosY(0, 0.5f));
 
         _wind = false;
@@ -310,6 +337,7 @@ public class StartScene : MonoBehaviour
         seq.Append(explainTxt.DOText("Speed : Normal", 1f));
         seq.Append(explainTxt_1.DOText("Damage : 5 ~ 15", 1f));
         seq.Append(_startButton.DOAnchorPosY(-400, 0.5f));
+        seq.Append(_escapeButton.DOAnchorPosY(900, 0.5f));
         seq.Append(_quitButton.DOAnchorPosY(0, 0.5f));
 
         _wind = false;
@@ -344,6 +372,7 @@ public class StartScene : MonoBehaviour
         seq.Append(explainTxt.DOText("Speed : Fast", 1f));
         seq.Append(explainTxt_1.DOText("Damage : 1 ~ 5", 1f));
         seq.Append(_startButton.DOAnchorPosY(-400, 0.5f));
+        seq.Append(_escapeButton.DOAnchorPosY(900, 0.5f));
         seq.Append(_quitButton.DOAnchorPosY(0, 0.5f));
 
         _wind = false;
@@ -387,35 +416,6 @@ public class StartScene : MonoBehaviour
         yield return new WaitForSeconds(sec);
 
         SceneManager.LoadScene(1);
-    }
-
-    IEnumerator BackSpaceEscape()
-    {
-        while (true)
-        {
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Backspace));
-
-            yield return new WaitForSeconds(2.5f);
-            isDissolveBack = true;
-
-            Sequence seq = DOTween.Sequence();
-
-            seq.Append(_attributeImage.DOAnchorPosY(-800, 0.5f));
-            seq.Join(_startButton.DOAnchorPosY(-600, 0.5f));
-            seq.Join(_quitButton.DOAnchorPosY(-660, 0.5f));
-            seq.Join(_attributePanel.DOAnchorPosY(-1080, 0.5f));
-            explainTxt.DOText("", 0.1f);
-            explainTxt_1.DOText("", 0.1f);
-            explainTxt_2.DOText("", 0.1f);
-
-            _attributeTrm.gameObject.SetActive(false);
-            _isNotStart = false;
-
-            _windButton.interactable = true;
-            _fireButton.interactable = true;
-            _thunderButton.interactable = true;
-            _waterButton.interactable = true;
-        }
     }
 
     IEnumerator Exit()
