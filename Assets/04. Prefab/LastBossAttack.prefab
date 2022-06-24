@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1637843059405966549}
   - component: {fileID: -7028595204236135379}
   - component: {fileID: -7467484080305988511}
-  - component: {fileID: -5275767395099103125}
+  - component: {fileID: 6963205845085695198}
   m_Layer: 11
   m_Name: LastBossAttack
   m_TagString: Bullet
@@ -155,7 +155,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.32
---- !u!114 &-5275767395099103125
+--- !u!114 &6963205845085695198
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

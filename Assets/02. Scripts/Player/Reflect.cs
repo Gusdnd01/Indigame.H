@@ -21,6 +21,8 @@ public class Reflect : MonoBehaviour
         var speed = lastVelocity.magnitude;
         var dir = Vector2.Reflect(lastVelocity.normalized, coll.contacts[0].normal);
 
-        rigid.velocity = dir * Mathf.Max(speed, 0f);
+        print(dir);
+
+        rigid.velocity = dir.normalized * speed;
     }
 }
