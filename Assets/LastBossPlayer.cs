@@ -30,13 +30,13 @@ public class LastBossPlayer : MonoBehaviour
     [Header("데미지 수치관련")]
     [SerializeField] private float damage;
     [SerializeField] private float maxHp;
-    [SerializeField] private float currentHp;
+    public float currentHp;
     float sec;
 
     [Header("스킬 게이지 관련")]
     [SerializeField] private float maxGauge_skill;
     [SerializeField] private float currentGauge_skill;
-
+    AudioSource audioSource;
     Image blink;
 
 
@@ -50,18 +50,24 @@ public class LastBossPlayer : MonoBehaviour
         _curtain = GameObject.Find("Canvas/Curtain").GetComponent<RectTransform>();
         _curtain_1 = GameObject.Find("Canvas/Curtain_1").GetComponent<RectTransform>();
         blink = GameObject.Find("Canvas/Blink").GetComponent<Image>();
+        audioSource = GetComponent<AudioSource>();
 
         StartCoroutine(Fire());
         StartCoroutine(UseSkill());
 
-
+        currentHp = maxHp;
     }
+    public void AudioPlay()
+    {
+        audioSource.Play();
+    }
+
 
     void Update()
     {
         if (currentGauge_skill < 100)
         {
-            currentGauge_skill += 0.1f;
+            currentGauge_skill += 1f;
             _skillBarAmount.fillAmount = currentGauge_skill / maxGauge_skill;
         }
     }
@@ -73,17 +79,29 @@ public class LastBossPlayer : MonoBehaviour
         if (collision.gameObject.CompareTag("Bullet"))
         {
             rect.DOShakeAnchorPos(1f, 10, 10);
-            damage = UnityEngine.Random.Range(3, 5);
             Destroy(collision.gameObject);
+            damage = UnityEngine.Random.Range(3, 5);
             Instantiate(bloodPrefab, transform.position, Quaternion.identity);
-            currentHp -= damage;
+            PlayerDamage(damage);
 
             _hpBarAmount.fillAmount = currentHp / maxHp;
-            if (currentHp < 0f)
-            {
-                StartCoroutine(Death(2.5f));
-            }
+            
         }
+    }
+
+    public float PlayerDamage(float damage)
+    {
+        currentHp -= damage;
+
+        _hpBarAmount.fillAmount = currentHp / maxHp;
+
+        if (currentHp <= 0f)
+        {
+            StartCoroutine(Death(2.5f));
+        }
+
+        print(currentHp);
+        return currentHp;
     }
 
     IEnumerator Fire()

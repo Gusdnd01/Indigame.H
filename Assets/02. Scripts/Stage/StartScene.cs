@@ -357,7 +357,7 @@ public class StartScene : MonoBehaviour
         explainTxt_1.DOText("", 0.1f);
         explainTxt_2.DOText("", 0.1f);
         _audioSource.Play();
-
+        
 
         explainTxt.gameObject.SetActive(true);
         explainTxt_1.gameObject.SetActive(true);

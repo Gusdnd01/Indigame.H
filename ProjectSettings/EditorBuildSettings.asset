@@ -20,4 +20,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/01. Scenes/Ending.unity
     guid: e19bf980bd77a3245b6325a2a7587ed5
+  - enabled: 1
+    path: Assets/01. Scenes/Intro 1.unity
+    guid: cadc7070ce14d5649aefcd7ef1da4391
+  - enabled: 1
+    path: Assets/01. Scenes/LoadingScene.unity
+    guid: 7578ce1e6147e614d8a5dea130a8a078
   m_configObjects: {}

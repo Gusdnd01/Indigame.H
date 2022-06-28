@@ -80,7 +80,6 @@ public class Boss : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            stageIndex = 6;
             currentHp = 0;
         }
     }
@@ -160,15 +159,9 @@ public class Boss : MonoBehaviour
         curtain_1.DOAnchorPosX(-960, 0.5f);
         yield return new WaitForSeconds(sec);
         isDeath = false;
-        if(stageIndex < 5)
-        {
-            stageIndex++;
-            PlayerPrefs.SetInt("Stage", stageIndex);
-            SceneManager.LoadScene(2);
-        }
-        else
-        {
-            SceneManager.LoadScene(3);
-        }
+        stageIndex = PlayerPrefs.GetInt("Stage");
+        stageIndex++;
+        PlayerPrefs.SetInt("Stage", stageIndex);
+        SceneManager.LoadScene("LoadingScene");
     }
 }

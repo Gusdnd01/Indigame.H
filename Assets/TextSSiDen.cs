@@ -7,6 +7,8 @@ using DG.Tweening;
 public class TextSSiDen : MonoBehaviour
 {
     private Text txt;
+    [SerializeField] private string Txt;
+    [SerializeField] private string Txt_1;
 
     private void Awake()
     {
@@ -23,8 +25,8 @@ public class TextSSiDen : MonoBehaviour
 
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(txt.DOText("She goes on a demon hunt again today.", sec));
+        seq.Append(txt.DOText(Txt, sec));
         seq.Append(txt.DOText("", 0.1f));
-        seq.Append(txt.DOText("With a weapon strengthened by magic....", sec));
+        seq.Append(txt.DOText(Txt_1, sec));
     }
 }

@@ -76,7 +76,7 @@ public class PlayerAttack : MonoBehaviour
         if (collision.gameObject.CompareTag("Bullet"))
         {
             rect.DOShakeAnchorPos(1f, 10, 10);
-            damage = UnityEngine.Random.Range(3, 5);
+            damage = UnityEngine.Random.Range(10, 15);
             Destroy(collision.gameObject);
             Instantiate(bloodPrefab, transform.position, Quaternion.identity);
             currentHp -= damage;
@@ -93,7 +93,7 @@ public class PlayerAttack : MonoBehaviour
     {
        if(currentGauge_skill < 100)
         {
-            currentGauge_skill += 0.1f;
+            currentGauge_skill += 1f;
             _skillBarAmount.fillAmount = currentGauge_skill / maxGauge_skill;
         }
 

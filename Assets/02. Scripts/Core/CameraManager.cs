@@ -9,6 +9,7 @@ public class CameraManager : MonoBehaviour
 
     [SerializeField] private CinemachineVirtualCamera PlayerCam;
     [SerializeField] private CinemachineVirtualCamera BossCam;
+    [SerializeField] private CinemachineVirtualCamera BossDeathCam;
 
     private int frontPriority = 15;
     private int backPriority = 10;
@@ -25,11 +26,20 @@ public class CameraManager : MonoBehaviour
     {
         PlayerCam.Priority = frontPriority;
         BossCam.Priority = backPriority;
+        BossDeathCam.Priority = backPriority;
     }
 
     public void BossCamActive()
     {
         PlayerCam.Priority = backPriority;
         BossCam.Priority = frontPriority;
+        BossDeathCam.Priority = backPriority;
+    }
+
+    public void BossDeathCamActive()
+    {
+        PlayerCam.Priority = backPriority;
+        BossCam.Priority = backPriority;
+        BossDeathCam.Priority = frontPriority;
     }
 }

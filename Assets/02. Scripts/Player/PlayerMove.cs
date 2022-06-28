@@ -6,8 +6,11 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private StageData stageData;
     Rigidbody2D rb;
 
+    AudioSource audioSource;
+
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -29,5 +32,10 @@ public class PlayerMove : MonoBehaviour
         //y = Mathf.Clamp(y, stageData.LimitMin.y, stageData.LimitMax.y);
 
         //transform.position = new Vector3(x,y,0);
+    }
+
+    public void AudioPlay()
+    {
+        audioSource.Play();
     }
 }

@@ -8,7 +8,7 @@ public class CurtainManager : MonoBehaviour
 {
     private RectTransform _curtain;
     private RectTransform _curtain_1;
-
+    [SerializeField] int index;
     private void Awake()
     {
         _curtain = GameObject.Find("Canvas/CurtainManager/Curtain").GetComponent<RectTransform>();
@@ -51,7 +51,7 @@ public class CurtainManager : MonoBehaviour
         _curtain.DOAnchorPosX(960, 1f);
         _curtain_1.DOAnchorPosX(-960, 1f);
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(index);
     }
 
     IEnumerator MoveMenu(float sec)

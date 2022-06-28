@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class CamMove : MonoBehaviour
 {
     private float speed = 5f;
+    [SerializeField] private int index;
 
     Rigidbody2D rb;
     Animator anim;
@@ -39,7 +40,7 @@ public class CamMove : MonoBehaviour
 
             yield return new WaitForSeconds(sec);
 
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(index);
         }
     }
 }
