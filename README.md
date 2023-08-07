@@ -1,2 +1,3 @@
-# Indigame.H
-Shooting game
+# Devil Hunt
+
+## 2022학년도 1학기 개인프로젝트 작품입니다.
